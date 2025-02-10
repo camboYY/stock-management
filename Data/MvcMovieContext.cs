@@ -1,0 +1,186 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using MvcMovie.Models;
+
+namespace MvcMovie.Data
+{
+    public class MvcMovieContext : IdentityDbContext<IdentityUser>
+    {
+    
+        public MvcMovieContext (DbContextOptions<MvcMovieContext> options): base(options)
+        {
+        }
+
+        public DbSet<Movie> Movie { get; set; } = default!;
+        public DbSet<Category> Category { get; set; }
+        public DbSet<Product> Product { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers {get; set;}
+        public DbSet<Warehouse> Warehouses {get;set;}
+        public DbSet<Supplier> Suppliers {get;set;}
+        public DbSet<Branch> Branches {get;set;}
+    
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Movie>(entity =>
+            {
+                entity.Property(e => e.Title).HasColumnType("TEXT");
+                entity.Property(e => e.Genre).HasColumnType("TEXT");
+            });
+            modelBuilder.Entity<Category>().ToTable("Category").HasData(
+                new Category { Id = 1, Name = "Action", DisplayOrder = 1 },
+                new Category { Id = 2, Name = "SciFi", DisplayOrder = 2 },
+                new Category { Id = 3, Name = "History", DisplayOrder = 3 }
+                );
+            modelBuilder.Entity<Branch>().ToTable("Branches").HasData(
+                new Branch { Id = 1, Name = "Phnom Penh", BranchCode="0001", Active=true  },
+                new Branch { Id = 2, Name = "Battambang", BranchCode="0002" , Active=true},
+                new Branch { Id = 3, Name = "Kampot", BranchCode="0003", Active=true  }
+                );
+            modelBuilder.Entity<Supplier>().ToTable("Suppliers").HasData(
+                new Supplier { Id = 1, Name = "Yaksar",  ContactName="Toto" , PhoneNumber="089333444", Address="1234 Pine St, Los Angeles, California, 90210, United States" },
+                new Supplier { Id = 2, Name = "Krong Thai" , ContactName="Tata", PhoneNumber="098333334", Address="5678 Oak Ave, New York, New York, 10001, United States"},
+                new Supplier { Id = 3, Name = "Appsora",  ContactName="KOKO", PhoneNumber="078736363", Address="5678 Oak Ave, New York, New York, 10001, Phnom Penh" }
+                );
+            modelBuilder.Entity<Warehouse>().ToTable("Warehouses").HasData(
+                new Warehouse { Id = 1, Name = "Yaksar", Active=true  },
+                new Warehouse { Id = 2, Name = "Krong Thai", Active=true},
+                new Warehouse { Id = 3, Name = "Appsora", Active=true  }
+                );
+            modelBuilder.Entity<Product>().ToTable("Product").HasData(
+                new Product
+                {
+                    Id = 1,
+                    Title = "Fortune of Time",
+                    Author = "Billy Spark",
+                    Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+                    ISBN = "SWD9999001",
+                    ListPrice = 99,
+                    Price = 90,
+                    Price50 = 85,
+                    Price100 = 80,
+                    CategoryId =1,
+                    ImageUrl="",
+                    StockType="ABC",
+                    QtyAlert=1,
+                    SupplierId=1,
+                    BranchId=1,
+                    QtyOnHand=90,
+                    WarehouseId=1
+                },
+                new Product
+                {
+                    Id = 2,
+                    Title = "Dark Skies",
+                    Author = "Nancy Hoover",
+                    Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+                    ISBN = "CAW777777701",
+                    ListPrice = 40,
+                    Price = 30,
+                    Price50 = 25,
+                    Price100 = 20,
+                    CategoryId =1,
+                    ImageUrl="",
+                    StockType="ABD",
+                    QtyAlert=1,
+                    SupplierId=2,
+                    BranchId=1,
+                    QtyOnHand=100,
+                    WarehouseId=1
+                },
+                new Product
+                {
+                    Id = 3,
+                    Title = "Vanish in the Sunset",
+                    Author = "Julian Button",
+                    Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+                    ISBN = "RITO5555501",
+                    ListPrice = 55,
+                    Price = 50,
+                    Price50 = 40,
+                    Price100 = 35,
+                    CategoryId =2,
+                    ImageUrl="",
+                    StockType="ABE",
+                    QtyAlert=1,
+                    SupplierId=1,
+                    BranchId=2,
+                    QtyOnHand=90,
+                    WarehouseId=1
+                },
+                new Product
+                {
+                    Id = 4,
+                    Title = "Cotton Candy",
+                    Author = "Abby Muscles",
+                    Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+                    ISBN = "WS3333333301",
+                    ListPrice = 70,
+                    Price = 65,
+                    Price50 = 60,
+                    Price100 = 55,
+                    CategoryId =3,
+                    ImageUrl="",
+                    StockType="CBC",
+                    QtyAlert=1,
+                    SupplierId=2,
+                    BranchId=2,
+                    QtyOnHand=90,
+                    WarehouseId=2
+                },
+                new Product
+                {
+                    Id = 5,
+                    Title = "Rock in the Ocean",
+                    Author = "Ron Parker",
+                    Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+                    ISBN = "SOTJ1111111101",
+                    ListPrice = 30,
+                    Price = 27,
+                    Price50 = 25,
+                    Price100 = 20,
+                    CategoryId =1,
+                    ImageUrl="",
+                    StockType="AEC",
+                    QtyAlert=1,
+                    SupplierId=2,
+                    BranchId=3,
+                    QtyOnHand=90,
+                    WarehouseId=3
+                },
+                new Product
+                {
+                    Id = 6,
+                    Title = "Leaves and Wonders",
+                    Author = "Laura Phantom",
+                    Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+                    ISBN = "FOT000000001",
+                    ListPrice = 25,
+                    Price = 23,
+                    Price50 = 22,
+                    Price100 = 20,
+                    CategoryId =2,
+                    ImageUrl="",
+                    StockType="GBC",
+                    QtyAlert=1,
+                    SupplierId=3,
+                    BranchId=3,
+                    QtyOnHand=90,
+                    WarehouseId=3
+                }
+                );
+
+        }
+    }
+
+    
+
+}
