@@ -12,22 +12,27 @@ namespace MvcMovie.Data
 {
     public class MvcMovieContext : IdentityDbContext<IdentityUser>
     {
-    
-        public MvcMovieContext (DbContextOptions<MvcMovieContext> options): base(options)
+
+        public MvcMovieContext(DbContextOptions<MvcMovieContext> options) : base(options)
         {
         }
 
         public DbSet<Movie> Movie { get; set; } = default!;
         public DbSet<Category> Category { get; set; }
         public DbSet<Product> Product { get; set; }
-        public DbSet<ApplicationUser> ApplicationUsers {get; set;}
-        public DbSet<Warehouse> Warehouses {get;set;}
-        public DbSet<Supplier> Suppliers {get;set;}
-        public DbSet<Branch> Branches {get;set;}
-    
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Warehouse> Warehouses { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<Branch> Branches { get; set; }
+        public DbSet<UnitType> UnitTypes { get; set; }
+        public DbSet<ProductUnit> ProductUnits { get; set; }
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
+        public DbSet<OtherExpenseType> OtherExpenseTypes { get; set; }
+        public DbSet<OtherIncomeType> OtherIncomeTypes { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Movie>(entity =>
@@ -40,20 +45,37 @@ namespace MvcMovie.Data
                 new Category { Id = 2, Name = "SciFi", DisplayOrder = 2 },
                 new Category { Id = 3, Name = "History", DisplayOrder = 3 }
                 );
+            modelBuilder.Entity<OtherExpenseType>().ToTable("OtherExpenseTypes").HasData(
+                new OtherExpenseType { Id = 1, Name = "Salary expense" },
+                new OtherExpenseType { Id = 2, Name = "Interest expense" },
+                new OtherExpenseType { Id = 3, Name = "Fee expense" }
+                );
+            modelBuilder.Entity<OtherIncomeType>().ToTable("OtherIncomeTypes").HasData(
+                new OtherIncomeType { Id = 1, Name = "Other incomes" },
+                new OtherIncomeType { Id = 2, Name = "Interest income" },
+                new OtherIncomeType { Id = 3, Name = "Fee income" }
+            );
             modelBuilder.Entity<Branch>().ToTable("Branches").HasData(
-                new Branch { Id = 1, Name = "Phnom Penh", BranchCode="0001", Active=true  },
-                new Branch { Id = 2, Name = "Battambang", BranchCode="0002" , Active=true},
-                new Branch { Id = 3, Name = "Kampot", BranchCode="0003", Active=true  }
+                new Branch { Id = 1, Name = "Phnom Penh", BranchCode = "0001", Active = true },
+                new Branch { Id = 2, Name = "Battambang", BranchCode = "0002", Active = true },
+                new Branch { Id = 3, Name = "Kampot", BranchCode = "0003", Active = true }
                 );
             modelBuilder.Entity<Supplier>().ToTable("Suppliers").HasData(
-                new Supplier { Id = 1, Name = "Yaksar",  ContactName="Toto" , PhoneNumber="089333444", Address="1234 Pine St, Los Angeles, California, 90210, United States" },
-                new Supplier { Id = 2, Name = "Krong Thai" , ContactName="Tata", PhoneNumber="098333334", Address="5678 Oak Ave, New York, New York, 10001, United States"},
-                new Supplier { Id = 3, Name = "Appsora",  ContactName="KOKO", PhoneNumber="078736363", Address="5678 Oak Ave, New York, New York, 10001, Phnom Penh" }
+                new Supplier { Id = 1, Name = "Yaksar", ContactName = "Toto", PhoneNumber = "089333444", Address = "1234 Pine St, Los Angeles, California, 90210, United States" },
+                new Supplier { Id = 2, Name = "Krong Thai", ContactName = "Tata", PhoneNumber = "098333334", Address = "5678 Oak Ave, New York, New York, 10001, United States" },
+                new Supplier { Id = 3, Name = "Appsora", ContactName = "KOKO", PhoneNumber = "078736363", Address = "5678 Oak Ave, New York, New York, 10001, Phnom Penh" }
                 );
+            modelBuilder.Entity<PaymentMethod>().ToTable("PaymentMethods").HasData(
+            new PaymentMethod { Id = 1, Name = "ABA Pay", Type = "Toto", Status = true },
+            new PaymentMethod { Id = 2, Name = "Bangkok Pay", Type = "Tata", Status = true },
+            new PaymentMethod { Id = 3, Name = "Wing Pay", Type = "KOKO", Status = true },
+            new PaymentMethod { Id = 4, Name = "Cash", Type = "KOKO", Status = true }
+
+            );
             modelBuilder.Entity<Warehouse>().ToTable("Warehouses").HasData(
-                new Warehouse { Id = 1, Name = "Yaksar", Active=true  },
-                new Warehouse { Id = 2, Name = "Krong Thai", Active=true},
-                new Warehouse { Id = 3, Name = "Appsora", Active=true  }
+                new Warehouse { Id = 1, Name = "Yaksar", Active = true },
+                new Warehouse { Id = 2, Name = "Krong Thai", Active = true },
+                new Warehouse { Id = 3, Name = "Appsora", Active = true }
                 );
             modelBuilder.Entity<Product>().ToTable("Product").HasData(
                 new Product
@@ -67,14 +89,14 @@ namespace MvcMovie.Data
                     Price = 90,
                     Price50 = 85,
                     Price100 = 80,
-                    CategoryId =1,
-                    ImageUrl="",
-                    StockType="ABC",
-                    QtyAlert=1,
-                    SupplierId=1,
-                    BranchId=1,
-                    QtyOnHand=90,
-                    WarehouseId=1
+                    CategoryId = 1,
+                    ImageUrl = "",
+                    StockType = "ABC",
+                    QtyAlert = 1,
+                    SupplierId = 1,
+                    BranchId = 1,
+                    QtyOnHand = 90,
+                    WarehouseId = 1
                 },
                 new Product
                 {
@@ -87,14 +109,14 @@ namespace MvcMovie.Data
                     Price = 30,
                     Price50 = 25,
                     Price100 = 20,
-                    CategoryId =1,
-                    ImageUrl="",
-                    StockType="ABD",
-                    QtyAlert=1,
-                    SupplierId=2,
-                    BranchId=1,
-                    QtyOnHand=100,
-                    WarehouseId=1
+                    CategoryId = 1,
+                    ImageUrl = "",
+                    StockType = "ABD",
+                    QtyAlert = 1,
+                    SupplierId = 2,
+                    BranchId = 1,
+                    QtyOnHand = 100,
+                    WarehouseId = 1
                 },
                 new Product
                 {
@@ -107,14 +129,14 @@ namespace MvcMovie.Data
                     Price = 50,
                     Price50 = 40,
                     Price100 = 35,
-                    CategoryId =2,
-                    ImageUrl="",
-                    StockType="ABE",
-                    QtyAlert=1,
-                    SupplierId=1,
-                    BranchId=2,
-                    QtyOnHand=90,
-                    WarehouseId=1
+                    CategoryId = 2,
+                    ImageUrl = "",
+                    StockType = "ABE",
+                    QtyAlert = 1,
+                    SupplierId = 1,
+                    BranchId = 2,
+                    QtyOnHand = 90,
+                    WarehouseId = 1
                 },
                 new Product
                 {
@@ -127,14 +149,14 @@ namespace MvcMovie.Data
                     Price = 65,
                     Price50 = 60,
                     Price100 = 55,
-                    CategoryId =3,
-                    ImageUrl="",
-                    StockType="CBC",
-                    QtyAlert=1,
-                    SupplierId=2,
-                    BranchId=2,
-                    QtyOnHand=90,
-                    WarehouseId=2
+                    CategoryId = 3,
+                    ImageUrl = "",
+                    StockType = "CBC",
+                    QtyAlert = 1,
+                    SupplierId = 2,
+                    BranchId = 2,
+                    QtyOnHand = 90,
+                    WarehouseId = 2
                 },
                 new Product
                 {
@@ -147,14 +169,14 @@ namespace MvcMovie.Data
                     Price = 27,
                     Price50 = 25,
                     Price100 = 20,
-                    CategoryId =1,
-                    ImageUrl="",
-                    StockType="AEC",
-                    QtyAlert=1,
-                    SupplierId=2,
-                    BranchId=3,
-                    QtyOnHand=90,
-                    WarehouseId=3
+                    CategoryId = 1,
+                    ImageUrl = "",
+                    StockType = "AEC",
+                    QtyAlert = 1,
+                    SupplierId = 2,
+                    BranchId = 3,
+                    QtyOnHand = 90,
+                    WarehouseId = 3
                 },
                 new Product
                 {
@@ -167,20 +189,29 @@ namespace MvcMovie.Data
                     Price = 23,
                     Price50 = 22,
                     Price100 = 20,
-                    CategoryId =2,
-                    ImageUrl="",
-                    StockType="GBC",
-                    QtyAlert=1,
-                    SupplierId=3,
-                    BranchId=3,
-                    QtyOnHand=90,
-                    WarehouseId=3
+                    CategoryId = 2,
+                    ImageUrl = "",
+                    StockType = "GBC",
+                    QtyAlert = 1,
+                    SupplierId = 3,
+                    BranchId = 3,
+                    QtyOnHand = 90,
+                    WarehouseId = 3
                 }
                 );
-
+            modelBuilder.Entity<UnitType>().ToTable("UnitTypes").HasData(
+                new UnitType { Id = 1, Name = "ABC", Qty = 100 },
+                new UnitType { Id = 2, Name = "CDB Thai", Qty = 200 },
+                new UnitType { Id = 3, Name = "CCD", Qty = 900 }
+            );
+            modelBuilder.Entity<ProductUnit>().ToTable("ProductUnits").HasData(
+                new ProductUnit { Id = 1, ProductId = 1, UnitTypeId = 1, Cost = 90, Price = 100, IsDefault = true },
+                new ProductUnit { Id = 2, ProductId = 1, UnitTypeId = 2, Cost = 10, Price = 40, IsDefault = false },
+                new ProductUnit { Id = 3, ProductId = 1, UnitTypeId = 3, Cost = 30, Price = 40, IsDefault = false }
+            );
         }
     }
 
-    
+
 
 }

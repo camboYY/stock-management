@@ -1,5 +1,6 @@
 using MvcMovie.Controllers;
 using MvcMovie.Data;
+using MvcMovie.Models;
 
 namespace MvcMovie.Repositories
 {
@@ -11,7 +12,9 @@ namespace MvcMovie.Repositories
         public IBranchRepository Branch { get; set; }
         public ISupplierRepository Supplier { get; set; }
         public IWarehouseRepository Warehouse { get; set; }
-
+        public IProductUnitRepository ProductUnit { get; set; }
+        public IUnitTypeRepository UnitType { get; set; }
+        public IPaymentMethodRepository PaymentMethod { get; set; }
 
         public UnitOfWork(MvcMovieContext db)
         {
@@ -21,6 +24,9 @@ namespace MvcMovie.Repositories
             Branch = new BranchRepository(_db);
             Supplier = new SupplierRepository(_db);
             Warehouse = new WarehouseRepository(_db);
+            ProductUnit = new ProductUnitRepository(_db);
+            UnitType = new UnitTypeRepository(_db);
+            PaymentMethod = new PaymentMethodRepository(_db);
         }
 
         public void save()

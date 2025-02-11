@@ -9,6 +9,9 @@ namespace MvcMovie.Repositories
         IBranchRepository Branch { get; }
         ISupplierRepository Supplier { get; }
         IWarehouseRepository Warehouse { get; }
+        IProductUnitRepository ProductUnit { get; }
+        IUnitTypeRepository UnitType { get; }
+        IPaymentMethodRepository PaymentMethod { get; }
 
         void save();
     }

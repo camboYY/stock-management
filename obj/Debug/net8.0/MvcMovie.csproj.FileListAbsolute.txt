@@ -283,3 +283,4 @@
 /Users/yousyoeun/Documents/BBU/dotNet/mvc-dot-net/MvcMovie/obj/Debug/net8.0/MvcMovie.pdb
 /Users/yousyoeun/Documents/BBU/dotNet/mvc-dot-net/MvcMovie/obj/Debug/net8.0/MvcMovie.genruntimeconfig.cache
 /Users/yousyoeun/Documents/BBU/dotNet/mvc-dot-net/MvcMovie/obj/Debug/net8.0/ref/MvcMovie.dll
+/Users/yousyoeun/Documents/BBU/dotNet/mvc-dot-net/MvcMovie/obj/Debug/net8.0/MvcMovie.sourcelink.json

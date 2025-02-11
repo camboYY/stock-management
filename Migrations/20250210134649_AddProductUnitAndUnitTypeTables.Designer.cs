@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MvcMovie.Data;
 
@@ -11,9 +12,11 @@ using MvcMovie.Data;
 namespace MvcMovie.Migrations
 {
     [DbContext(typeof(MvcMovieContext))]
-    partial class MvcMovieContextModelSnapshot : ModelSnapshot
+    [Migration("20250210134649_AddProductUnitAndUnitTypeTables")]
+    partial class AddProductUnitAndUnitTypeTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -341,128 +344,6 @@ namespace MvcMovie.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Movie");
-                });
-
-            modelBuilder.Entity("MvcMovie.Models.OtherExpenseType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("OtherExpenseTypes", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Salary expense"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Interest expense"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Fee expense"
-                        });
-                });
-
-            modelBuilder.Entity("MvcMovie.Models.OtherIncomeType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("OtherIncomeTypes", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Other incomes"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Interest income"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Fee income"
-                        });
-                });
-
-            modelBuilder.Entity("MvcMovie.Models.PaymentMethod", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PaymentMethods", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "ABA Pay",
-                            Status = true,
-                            Type = "Toto"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Bangkok Pay",
-                            Status = true,
-                            Type = "Tata"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Wing Pay",
-                            Status = true,
-                            Type = "KOKO"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Cash",
-                            Status = true,
-                            Type = "KOKO"
-                        });
                 });
 
             modelBuilder.Entity("MvcMovie.Models.Product", b =>
