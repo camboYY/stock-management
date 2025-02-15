@@ -1,7 +1,9 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using MvcMovie.Data;
-using SQLitePCL;
+using X.PagedList;
+using X.PagedList.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace MvcMovie.Repositories
 {
@@ -9,7 +11,8 @@ namespace MvcMovie.Repositories
     {
         private readonly MvcMovieContext _db;
         internal DbSet<T> dbSet;
-        public Repository(MvcMovieContext mvcMovieContext){
+        public Repository(MvcMovieContext mvcMovieContext)
+        {
             _db = mvcMovieContext;
             dbSet = _db.Set<T>();
         }
@@ -21,8 +24,9 @@ namespace MvcMovie.Repositories
         public async Task<T> Get(Expression<Func<T, bool>> filter, string? inCludes = null)
         {
             IQueryable<T> query = dbSet;
-            if(!string.IsNullOrEmpty(inCludes)){
-                foreach(var includeProp in inCludes.Split(new char[]{','}, StringSplitOptions.RemoveEmptyEntries))
+            if (!string.IsNullOrEmpty(inCludes))
+            {
+                foreach (var includeProp in inCludes.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
                     query = query.Include(includeProp);
                 }
@@ -30,16 +34,21 @@ namespace MvcMovie.Repositories
             return await query.FirstAsync(filter);
         }
 
-        public async Task<IEnumerable<T>> GetAll(string? inCludes=null)
+        public async Task<IPagedList<T>> GetAll(int? page = 1, string? inCludes = null)
         {
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
             IQueryable<T> query = dbSet;
-            if(!string.IsNullOrEmpty(inCludes)){
-                foreach(var includeProp in inCludes.Split(new char[]{','}, StringSplitOptions.RemoveEmptyEntries))
+            if (!string.IsNullOrEmpty(inCludes))
+            {
+                foreach (var includeProp in inCludes.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
                     query = query.Include(includeProp);
                 }
             }
-            return await query.ToListAsync();
+
+            var list = await query.ToListAsync();
+            return list.ToPagedList(pageNumber, pageSize);
         }
 
         public void Remove(T entity)

@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Azure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using MvcMovie.Models;
 using MvcMovie.Repositories;
 using MvcMovie.Utility;
+using X.PagedList;
 
 namespace MvcMovie.Controllers
 {
@@ -21,9 +23,10 @@ namespace MvcMovie.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page = 1)
         {
-            return View(await _unitOfWork.Product.GetAll(inCludes: "Category,Branch,Supplier,Warehouse"));
+            IPagedList<Product> products = await _unitOfWork.Product.GetAll(page, inCludes: "Category,Branch,Supplier,Warehouse");
+            return View(products);
         }
 
         // GET: Product/Details/5

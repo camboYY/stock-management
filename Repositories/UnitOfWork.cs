@@ -15,6 +15,9 @@ namespace MvcMovie.Repositories
         public IProductUnitRepository ProductUnit { get; set; }
         public IUnitTypeRepository UnitType { get; set; }
         public IPaymentMethodRepository PaymentMethod { get; set; }
+        public IOtherIncomeTypeRepository OtherIncomeType { get; set; }
+        public IOtherExpenseTypeRepository OtherExpenseType { get; set; }
+        public ICustomerRepository Customer { get; set; }
 
         public UnitOfWork(MvcMovieContext db)
         {
@@ -27,6 +30,9 @@ namespace MvcMovie.Repositories
             ProductUnit = new ProductUnitRepository(_db);
             UnitType = new UnitTypeRepository(_db);
             PaymentMethod = new PaymentMethodRepository(_db);
+            OtherExpenseType = new OtherExpenseTypeRepository(_db);
+            OtherIncomeType = new OtherIncomeTypeRepository(_db);
+            Customer = new CustomerRepository(_db);
         }
 
         public void save()

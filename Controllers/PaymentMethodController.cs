@@ -13,9 +13,9 @@ public class PaymentMethodController : Controller
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(int? page = 1)
     {
-        IEnumerable<PaymentMethod> branches = await _unitOfWork.PaymentMethod.GetAll();
+        IEnumerable<PaymentMethod> branches = await _unitOfWork.PaymentMethod.GetAll(page);
         return View(branches);
     }
 

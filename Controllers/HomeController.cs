@@ -16,9 +16,9 @@ public class HomeController : Controller
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(int? page = 1)
     {
-        IEnumerable<Product> products = await _unitOfWork.Product.GetAll(inCludes:"Category");
+        IEnumerable<Product> products = await _unitOfWork.Product.GetAll(page, inCludes: "Category");
         return View(products);
     }
 
@@ -30,7 +30,7 @@ public class HomeController : Controller
         }
 
         var product = await _unitOfWork.Product
-            .Get(p => p.Id == productId,inCludes:"Category");
+            .Get(p => p.Id == productId, inCludes: "Category");
 
         if (product == null)
         {

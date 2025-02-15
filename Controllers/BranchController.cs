@@ -15,9 +15,9 @@ public class BranchController : Controller
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(int? page = 1)
     {
-        IEnumerable<Branch> branches = await _unitOfWork.Branch.GetAll();
+        IEnumerable<Branch> branches = await _unitOfWork.Branch.GetAll(page);
         return View(branches);
     }
 

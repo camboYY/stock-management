@@ -1,4 +1,7 @@
-@model IEnumerable<MvcMovie.Models.Product>
+@model X.PagedList.IPagedList<MvcMovie.Models.Product>
+
+@using X.PagedList.Mvc
+@using X.PagedList.Mvc.Core
 
 @{
     ViewData["Title"] = "Index";
@@ -13,49 +16,49 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                @Html.DisplayNameFor(model => model.First().Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.First().Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Author)
+                @Html.DisplayNameFor(model => model.First().Author)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ISBN)
+                @Html.DisplayNameFor(model => model.First().ISBN)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ListPrice)
+                @Html.DisplayNameFor(model => model.First().ListPrice)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.First().Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price50)
+                @Html.DisplayNameFor(model => model.First().Price50)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price100)
+                @Html.DisplayNameFor(model => model.First().Price100)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StockType)
+                @Html.DisplayNameFor(model => model.First().StockType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.QtyOnHand)
+                @Html.DisplayNameFor(model => model.First().QtyOnHand)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.QtyAlert)
+                @Html.DisplayNameFor(model => model.First().QtyAlert)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Category.Name)
+                @Html.DisplayNameFor(model => model.First().Category.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Branch.Name)
+                @Html.DisplayNameFor(model => model.First().Branch.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Supplier.Name)
+                @Html.DisplayNameFor(model => model.First().Supplier.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Warehouse.Name)
+                @Html.DisplayNameFor(model => model.First().Warehouse.Name)
             </th>
             <th></th>
         </tr>
@@ -120,3 +123,4 @@
         }
     </tbody>
 </table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

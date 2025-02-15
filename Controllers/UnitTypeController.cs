@@ -15,9 +15,9 @@ public class UnitTypeController : Controller
         _webHostEnvironment = webHostEnvironment;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(int? page = 1)
     {
-        IEnumerable<UnitType> results = await _unitOfWork.UnitType.GetAll();
+        IEnumerable<UnitType> results = await _unitOfWork.UnitType.GetAll(page);
         return View(results);
     }
 

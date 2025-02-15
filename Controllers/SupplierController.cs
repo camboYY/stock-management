@@ -15,9 +15,9 @@ public class SupplierController : Controller
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(int? page = 1)
     {
-        IEnumerable<Supplier> results = await _unitOfWork.Supplier.GetAll();
+        IEnumerable<Supplier> results = await _unitOfWork.Supplier.GetAll(page);
         return View(results);
     }
 

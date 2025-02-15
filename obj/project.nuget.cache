@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "VFRt/YpP31sLOm7c37eTWutFt1rFPhy+FZubO71Rtb8k6JR/UPNwNxOFcY7dR3UMJwzDQ5x16vfb40fmdCWzEg==",
+  "dgSpecHash": "jl7RAfx36aJG8jm9DjJhsJ9lSb+hQI78v9dyq24jnuE573ILRPnU9X2DO0e4og0KlBkftFD1xRGJfMBRmD9OMw==",
   "success": true,
   "projectFilePath": "/Users/yousyoeun/Documents/BBU/dotNet/mvc-dot-net/MvcMovie/MvcMovie.csproj",
   "expectedPackageFiles": [
@@ -173,7 +173,9 @@
     "/Users/yousyoeun/.nuget/packages/system.text.json/9.0.0-rc.2.24473.5/system.text.json.9.0.0-rc.2.24473.5.nupkg.sha512",
     "/Users/yousyoeun/.nuget/packages/system.threading.channels/7.0.0/system.threading.channels.7.0.0.nupkg.sha512",
     "/Users/yousyoeun/.nuget/packages/system.threading.tasks.dataflow/8.0.0/system.threading.tasks.dataflow.8.0.0.nupkg.sha512",
-    "/Users/yousyoeun/.nuget/packages/system.threading.tasks.extensions/4.5.4/system.threading.tasks.extensions.4.5.4.nupkg.sha512"
+    "/Users/yousyoeun/.nuget/packages/system.threading.tasks.extensions/4.5.4/system.threading.tasks.extensions.4.5.4.nupkg.sha512",
+    "/Users/yousyoeun/.nuget/packages/x.pagedlist/10.5.7/x.pagedlist.10.5.7.nupkg.sha512",
+    "/Users/yousyoeun/.nuget/packages/x.pagedlist.mvc.core/10.5.7/x.pagedlist.mvc.core.10.5.7.nupkg.sha512"
   ],
   "logs": []
 }

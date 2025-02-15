@@ -16,9 +16,9 @@ public class ProductUnitController : Controller
         _webHostEnvironment = webHostEnvironment;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(int? page = 1)
     {
-        IEnumerable<ProductUnit> results = await _unitOfWork.ProductUnit.GetAll(inCludes: "Product,UnitType");
+        IEnumerable<ProductUnit> results = await _unitOfWork.ProductUnit.GetAll(page, inCludes: "Product,UnitType");
         return View(results);
     }
 

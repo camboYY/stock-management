@@ -7,6 +7,6 @@ public class OtherExpenseType
 {
     [Key]
     public int Id { get; set; }
-    [DisplayName("Other Income Type")]
+    [DisplayName("Other Expense Type")]
     public string Name { get; set; }
 }

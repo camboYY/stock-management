@@ -1,4 +1,7 @@
-@model IEnumerable<MvcMovie.Models.Branch>
+@model X.PagedList.IPagedList<MvcMovie.Models.Branch>
+
+@using X.PagedList.Mvc
+@using X.PagedList.Mvc.Core
 
 @{
     ViewData["Title"] = "Index";
@@ -12,16 +15,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                @Html.DisplayNameFor(model => model.First().Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.First().Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BranchCode)
+                @Html.DisplayNameFor(model => model.First().BranchCode)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Active)
+                @Html.DisplayNameFor(model => model.First().Active)
             </th>
             <th></th>
         </tr>
@@ -51,3 +54,4 @@
         }
     </tbody>
 </table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

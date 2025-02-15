@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "tn1V0giNVYrPwOjQu6TROR+KBdyeqV/2nV/uAuK/xUY=",
+  "Hash": "JSCnwsSr7HLqBGN+toCT16B3vww4Pk/7mPAWzA53qVQ=",
   "Source": "MvcMovie",
   "BasePath": "_content/MvcMovie",
   "Mode": "Default",
@@ -1231,6 +1231,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/favicon.ico"
+    },
+    {
+      "Identity": "/Users/yousyoeun/Documents/BBU/dotNet/mvc-dot-net/MvcMovie/wwwroot/images/customer/2cb511a7-35b0-4d5a-a724-9df26fa424fa.jpg",
+      "SourceId": "MvcMovie",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/yousyoeun/Documents/BBU/dotNet/mvc-dot-net/MvcMovie/wwwroot/",
+      "BasePath": "_content/MvcMovie",
+      "RelativePath": "images/customer/2cb511a7-35b0-4d5a-a724-9df26fa424fa.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/images/customer/2cb511a7-35b0-4d5a-a724-9df26fa424fa.jpg"
     },
     {
       "Identity": "/Users/yousyoeun/Documents/BBU/dotNet/mvc-dot-net/MvcMovie/wwwroot/images/product/1c0f9166-7865-451d-8adb-eaef136bb158.jpg",

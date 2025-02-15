@@ -29,6 +29,7 @@ namespace MvcMovie.Data
         public DbSet<PaymentMethod> PaymentMethods { get; set; }
         public DbSet<OtherExpenseType> OtherExpenseTypes { get; set; }
         public DbSet<OtherIncomeType> OtherIncomeTypes { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -45,6 +46,11 @@ namespace MvcMovie.Data
                 new Category { Id = 2, Name = "SciFi", DisplayOrder = 2 },
                 new Category { Id = 3, Name = "History", DisplayOrder = 3 }
                 );
+            modelBuilder.Entity<Customer>().ToTable("Customers").HasData(
+                new Customer { Id = 1, Name = "Joker", Sex = Gender.Female, Address = "#12, st:30, sangkat vealvong, khan 7 makra, phnom penh", PhoneNumber = "0973333333", Image = "" },
+                new Customer { Id = 2, Name = "Later", Sex = Gender.Male, Address = "#13, st:33, sangkat vealvong, khan 7 makra, phnom penh", PhoneNumber = "0636363", Image = "" },
+                new Customer { Id = 3, Name = "Absent", Sex = Gender.Female, Address = "#12, st:44, sangkat vealvong, khan 7 makra, phnom penh", PhoneNumber = "8947474", Image = "" }
+            );
             modelBuilder.Entity<OtherExpenseType>().ToTable("OtherExpenseTypes").HasData(
                 new OtherExpenseType { Id = 1, Name = "Salary expense" },
                 new OtherExpenseType { Id = 2, Name = "Interest expense" },

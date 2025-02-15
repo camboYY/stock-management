@@ -317,6 +317,66 @@ namespace MvcMovie.Migrations
                         });
                 });
 
+            modelBuilder.Entity("MvcMovie.Models.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Sex")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Customers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "#12, st:30, sangkat vealvong, khan 7 makra, phnom penh",
+                            Image = "",
+                            Name = "Joker",
+                            PhoneNumber = "0973333333",
+                            Sex = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "#13, st:33, sangkat vealvong, khan 7 makra, phnom penh",
+                            Image = "",
+                            Name = "Later",
+                            PhoneNumber = "0636363",
+                            Sex = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "#12, st:44, sangkat vealvong, khan 7 makra, phnom penh",
+                            Image = "",
+                            Name = "Absent",
+                            PhoneNumber = "8947474",
+                            Sex = 1
+                        });
+                });
+
             modelBuilder.Entity("MvcMovie.Models.Movie", b =>
                 {
                     b.Property<int>("Id")

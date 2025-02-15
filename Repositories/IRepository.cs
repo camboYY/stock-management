@@ -1,10 +1,11 @@
 using System.Linq.Expressions;
+using X.PagedList;
 
 namespace MvcMovie.Repositories
 {
     public interface IRepository<T> where T : class
     {
-        Task<IEnumerable<T>> GetAll(string? inCludes = null);
+        Task<IPagedList<T>> GetAll(int? page = 1, string? inCludes = null);
         Task<T> Get(Expression<Func<T, bool>> filter, string? inCludes = null);
         void Add(T entity);
         void Remove(T entity);

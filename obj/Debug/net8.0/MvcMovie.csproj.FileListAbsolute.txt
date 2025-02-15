@@ -284,3 +284,5 @@
 /Users/yousyoeun/Documents/BBU/dotNet/mvc-dot-net/MvcMovie/obj/Debug/net8.0/MvcMovie.genruntimeconfig.cache
 /Users/yousyoeun/Documents/BBU/dotNet/mvc-dot-net/MvcMovie/obj/Debug/net8.0/ref/MvcMovie.dll
 /Users/yousyoeun/Documents/BBU/dotNet/mvc-dot-net/MvcMovie/obj/Debug/net8.0/MvcMovie.sourcelink.json
+/Users/yousyoeun/Documents/BBU/dotNet/mvc-dot-net/MvcMovie/bin/Debug/net8.0/X.PagedList.dll
+/Users/yousyoeun/Documents/BBU/dotNet/mvc-dot-net/MvcMovie/bin/Debug/net8.0/X.PagedList.Mvc.Core.dll
