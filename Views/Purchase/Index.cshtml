@@ -1,0 +1,112 @@
+@model IEnumerable<MvcMovie.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<form asp-controller="Purchase" asp-action="Index">
+    <p class="w-25" style="display: flex;">
+        <input type="text" name="SearchString" class="form-control" aria-label="Default"
+            aria-describedby="inputGroup-sizing-default">
+        <input type="submit" value="Search" class="btn btn-secondary" />
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price50)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price100)
+            </th>
+            <th style="width: 43%;">
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <input type="checkbox" value="@item.Id" name="item" class="chk" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price50)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price100)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    <img src="@item.ImageUrl" class="w-25" />
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<button id="getValues" class="btn btn-outline-success">Get Items</button>
+<div id="purchaseView"></div> <!-- To display the returned view -->
+
+@section scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#getValues").click(function () {
+                var selectedValues = [];
+                $(".chk:checked").each(function () {
+                    selectedValues.push($(this).val());
+                });
+                if (selectedValues.length === 0) {
+                    alert("Please select at least one item.");
+                    return;
+                }
+
+                @* Send values via AJAX *@
+                    $.ajax({
+                        type: "POST",
+                        url: "/Purchase/OnPurchase", // Update with your controller/action
+                        contentType: "application/json",
+                        data: JSON.stringify(selectedValues),
+                        success: function (response) {
+                            window.location.href = response.redirectUrl; // Redirect to new page
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error:", error);
+                        }
+                    });
+            });
+        });
+
+
+    </script>
+}

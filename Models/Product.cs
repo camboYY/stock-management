@@ -58,5 +58,6 @@ namespace MvcMovie.Models
         public int SupplierId { get; set; }
         [ValidateNever]
         public Supplier Supplier { get; set; }
+
     }
 }

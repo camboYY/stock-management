@@ -14,7 +14,6 @@ namespace MvcMovie.Models
         [DisplayName("Display Order")]
         [Range(1, 100, ErrorMessage = "Display Order must be between 1-100")]
         public int DisplayOrder { get; set; }
-        public ICollection<Product> Products { get; } = new List<Product>(); // Collection navigation containing dependents
 
     }
 }

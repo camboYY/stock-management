@@ -30,6 +30,9 @@ namespace MvcMovie.Data
         public DbSet<OtherExpenseType> OtherExpenseTypes { get; set; }
         public DbSet<OtherIncomeType> OtherIncomeTypes { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Purchase> Purchases { get; set; }
+        public DbSet<PurchaseDetail> PurchaseDetails { get; set; }
+        public DbSet<PurchasePayment> PurchasePayments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -214,6 +217,22 @@ namespace MvcMovie.Data
                 new ProductUnit { Id = 1, ProductId = 1, UnitTypeId = 1, Cost = 90, Price = 100, IsDefault = true },
                 new ProductUnit { Id = 2, ProductId = 1, UnitTypeId = 2, Cost = 10, Price = 40, IsDefault = false },
                 new ProductUnit { Id = 3, ProductId = 1, UnitTypeId = 3, Cost = 30, Price = 40, IsDefault = false }
+            );
+            modelBuilder.Entity<Purchase>().ToTable("Purchases").HasData(
+               new Purchase { Id = 1, PurchaseDate = DateTime.Today, Date = DateTime.Now, UserId = 2, SupplierId = 1, Amount = 100.0, Discount = 10, Deposit = 10, Status = true },
+               new Purchase { Id = 2, PurchaseDate = DateTime.Today, Date = DateTime.Now, UserId = 3, SupplierId = 2, Amount = 300.0, Discount = 30, Deposit = 30, Status = true },
+               new Purchase { Id = 3, PurchaseDate = DateTime.Today, Date = DateTime.Now, UserId = 1, SupplierId = 3, Amount = 200.0, Discount = 10, Deposit = 10, Status = true }
+           );
+            modelBuilder.Entity<PurchaseDetail>().ToTable("PurchaseDetails").HasData(
+                new PurchaseDetail { Id = 1, PurchaseId = 1, ProductId = 1, Cost = 100.0, Discount = 10, Qty = 100 },
+                new PurchaseDetail { Id = 2, PurchaseId = 2, ProductId = 2, Cost = 300.0, Discount = 30, Qty = 230 },
+                new PurchaseDetail { Id = 3, PurchaseId = 3, ProductId = 3, Cost = 400.0, Discount = 20, Qty = 200 }
+            );
+
+            modelBuilder.Entity<PurchasePayment>().ToTable("PurchasePayments").HasData(
+                new PurchasePayment { Id = 1, PurchaseId = 1, PaymentMethodId = 1, PayAmount = 100.0, UserId = 2, PayDate = DateTime.Now },
+                new PurchasePayment { Id = 2, PurchaseId = 2, PaymentMethodId = 2, PayAmount = 200.0, UserId = 1, PayDate = DateTime.Now },
+                new PurchasePayment { Id = 3, PurchaseId = 3, PaymentMethodId = 1, PayAmount = 300.0, UserId = 3, PayDate = DateTime.Now }
             );
         }
     }

@@ -15,7 +15,9 @@ namespace MvcMovie.Repositories
         IOtherExpenseTypeRepository OtherExpenseType { get; }
         IOtherIncomeTypeRepository OtherIncomeType { get; }
         ICustomerRepository Customer { get; }
-
+        IPurchaseDetailRepository PurchaseDetail { get; }
+        IPurchasePaymentRepository PurchasePayment { get; }
+        IPurchaseRepository Purchase { get; }
         void save();
     }
 

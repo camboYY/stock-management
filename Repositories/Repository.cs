@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using MvcMovie.Data;
 using X.PagedList;
 using X.PagedList.Extensions;
-using Microsoft.EntityFrameworkCore;
 
 namespace MvcMovie.Repositories
 {
@@ -49,6 +48,20 @@ namespace MvcMovie.Repositories
 
             var list = await query.ToListAsync();
             return list.ToPagedList(pageNumber, pageSize);
+        }
+
+        public async Task<List<T>> GetList(Expression<Func<T, bool>> filter, string? inCludes = null)
+        {
+            IQueryable<T> query = dbSet;
+            if (!string.IsNullOrEmpty(inCludes))
+            {
+                foreach (var includeProp in inCludes.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+            query = query.Where(filter);
+            return await query.ToListAsync();
         }
 
         public void Remove(T entity)

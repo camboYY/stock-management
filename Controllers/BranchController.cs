@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using MvcMovie.Models;
 using MvcMovie.Repositories;
+using MvcMovie.Models;
 
 namespace MvcMovie.Controllers;
 

@@ -1,0 +1,61 @@
+@model List<MvcMovie.Models.Product>
+
+@{
+    ViewData["Title"] = "Purchasing";
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Supplier
+            </th>
+            <th>
+                Cost
+            </th>
+            <th>
+                Qty
+            </th>
+            <th>
+                Discount
+            </th>
+            <th>
+                Total
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    <div class="form-group ">
+                        <label asp-for="@item.BranchId" class="control-label"></label>
+                        <select asp-for="@item.BranchId" asp-items="@ViewData["BranchList"] as IEnumerable<SelectListItem>"
+                            class="form-control ">
+                            <option disabled selected>--select Branch--</option>
+                        </select>
+                        <span asp-validation-for="@item.BranchId" class="text-danger"></span>
+                    </div>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
