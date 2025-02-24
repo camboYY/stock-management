@@ -34,6 +34,14 @@ namespace MvcMovie.Data
         public DbSet<PurchaseDetail> PurchaseDetails { get; set; }
         public DbSet<PurchasePayment> PurchasePayments { get; set; }
 
+        public DbSet<Rate> Rates { get; set; } 
+
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.ConfigureWarnings(w => w.Ignore(RelationalEventId.PendingModelChangesWarning));
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
