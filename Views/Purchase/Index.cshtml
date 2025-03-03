@@ -4,13 +4,18 @@
     ViewData["Title"] = "Index";
 }
 
-<form asp-controller="Purchase" asp-action="Index">
-    <p class="w-25" style="display: flex;">
-        <input type="text" name="SearchString" class="form-control" aria-label="Default"
-            aria-describedby="inputGroup-sizing-default">
-        <input type="submit" value="Search" class="btn btn-secondary" />
-    </p>
-</form>
+<div class="wrapper">
+    <form asp-controller="Purchase" asp-action="Index">
+        <p class="w-100" style="display: flex;">
+            <input type="text" style="width: 500px;" name="SearchString" class="form-control" aria-label="Default"
+                aria-describedby="inputGroup-sizing-default">
+            <input type="submit" value="Search" class="btn btn-secondary" />
+        </p>
+    </form>
+    <div class="purchase-report">
+        <a class="btn btn-outline-primary" asp-action="Payment">Purchase Report</a>
+    </div>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -75,7 +80,6 @@
 </table>
 
 <button id="getValues" class="btn btn-outline-success">Get Items</button>
-<div id="purchaseView"></div> <!-- To display the returned view -->
 
 @section scripts {
     <script type="text/javascript">

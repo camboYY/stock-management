@@ -12,8 +12,8 @@ using MvcMovie.Data;
 namespace MvcMovie.Migrations
 {
     [DbContext(typeof(MvcMovieContext))]
-    [Migration("20250215034146_AddCustomerTable")]
-    partial class AddCustomerTable
+    [Migration("20250303134310_FixCascadeIssue")]
+    partial class FixCascadeIssue
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -783,6 +783,221 @@ namespace MvcMovie.Migrations
                         });
                 });
 
+            modelBuilder.Entity("MvcMovie.Models.Purchase", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<DateTime?>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Deposit")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<DateTime?>("PurchaseDate")
+                        .IsRequired()
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("PurchaseOrderNumber")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("SupplierId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SupplierId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Purchases", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Amount = 100m,
+                            Date = new DateTime(2025, 3, 3, 20, 43, 9, 209, DateTimeKind.Local).AddTicks(2020),
+                            Deposit = 10m,
+                            Discount = 10m,
+                            PurchaseDate = new DateTime(2025, 3, 3, 0, 0, 0, 0, DateTimeKind.Local),
+                            Status = true,
+                            SupplierId = 1,
+                            UserId1 = "three"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Amount = 300m,
+                            Date = new DateTime(2025, 3, 3, 20, 43, 9, 209, DateTimeKind.Local).AddTicks(2030),
+                            Deposit = 30m,
+                            Discount = 30m,
+                            PurchaseDate = new DateTime(2025, 3, 3, 0, 0, 0, 0, DateTimeKind.Local),
+                            Status = true,
+                            SupplierId = 2,
+                            UserId1 = "one"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Amount = 200m,
+                            Date = new DateTime(2025, 3, 3, 20, 43, 9, 209, DateTimeKind.Local).AddTicks(2030),
+                            Deposit = 10m,
+                            Discount = 10m,
+                            PurchaseDate = new DateTime(2025, 3, 3, 0, 0, 0, 0, DateTimeKind.Local),
+                            Status = true,
+                            SupplierId = 3,
+                            UserId1 = "two"
+                        });
+                });
+
+            modelBuilder.Entity("MvcMovie.Models.PurchaseDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PurchaseId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Qty")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<int>("UnitTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("PurchaseId");
+
+                    b.HasIndex("UnitTypeId");
+
+                    b.ToTable("PurchaseDetails", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Cost = 100m,
+                            Discount = 10m,
+                            ProductId = 1,
+                            PurchaseId = 1,
+                            Qty = 100m,
+                            UnitTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Cost = 300m,
+                            Discount = 30m,
+                            ProductId = 2,
+                            PurchaseId = 2,
+                            Qty = 230m,
+                            UnitTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Cost = 400m,
+                            Discount = 20m,
+                            ProductId = 3,
+                            PurchaseId = 3,
+                            Qty = 200m,
+                            UnitTypeId = 3
+                        });
+                });
+
+            modelBuilder.Entity("MvcMovie.Models.PurchasePayment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("PayAmount")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<DateTime>("PayDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PaymentMethodId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PurchaseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PaymentMethodId");
+
+                    b.HasIndex("PurchaseId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PurchasePayments", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            PayAmount = 100m,
+                            PayDate = new DateTime(2025, 3, 3, 20, 43, 9, 209, DateTimeKind.Local).AddTicks(2530),
+                            PaymentMethodId = 1,
+                            PurchaseId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            PayAmount = 200m,
+                            PayDate = new DateTime(2025, 3, 3, 20, 43, 9, 209, DateTimeKind.Local).AddTicks(2540),
+                            PaymentMethodId = 2,
+                            PurchaseId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            PayAmount = 300m,
+                            PayDate = new DateTime(2025, 3, 3, 20, 43, 9, 209, DateTimeKind.Local).AddTicks(2540),
+                            PaymentMethodId = 1,
+                            PurchaseId = 3
+                        });
+                });
+
             modelBuilder.Entity("MvcMovie.Models.Supplier", b =>
                 {
                     b.Property<int>("Id")
@@ -1001,7 +1216,7 @@ namespace MvcMovie.Migrations
                         .IsRequired();
 
                     b.HasOne("MvcMovie.Models.Category", "Category")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1046,12 +1261,76 @@ namespace MvcMovie.Migrations
                     b.Navigation("UnitType");
                 });
 
-            modelBuilder.Entity("MvcMovie.Models.Branch", b =>
+            modelBuilder.Entity("MvcMovie.Models.Purchase", b =>
                 {
-                    b.Navigation("Products");
+                    b.HasOne("MvcMovie.Models.Supplier", "Supplier")
+                        .WithMany()
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MvcMovie.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Supplier");
+
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MvcMovie.Models.Category", b =>
+            modelBuilder.Entity("MvcMovie.Models.PurchaseDetail", b =>
+                {
+                    b.HasOne("MvcMovie.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MvcMovie.Models.Purchase", "Purchase")
+                        .WithMany()
+                        .HasForeignKey("PurchaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MvcMovie.Models.UnitType", "UnitType")
+                        .WithMany()
+                        .HasForeignKey("UnitTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Purchase");
+
+                    b.Navigation("UnitType");
+                });
+
+            modelBuilder.Entity("MvcMovie.Models.PurchasePayment", b =>
+                {
+                    b.HasOne("MvcMovie.Models.PaymentMethod", "PaymentMethod")
+                        .WithMany()
+                        .HasForeignKey("PaymentMethodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MvcMovie.Models.Purchase", "Purchase")
+                        .WithMany()
+                        .HasForeignKey("PurchaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MvcMovie.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("PaymentMethod");
+
+                    b.Navigation("Purchase");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MvcMovie.Models.Branch", b =>
                 {
                     b.Navigation("Products");
                 });

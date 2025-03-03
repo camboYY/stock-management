@@ -804,8 +804,8 @@ namespace MvcMovie.Migrations
                         .IsRequired()
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("PurchaseOrderNumber")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long?>("PurchaseOrderNumber")
+                        .HasColumnType("bigint");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
@@ -813,17 +813,17 @@ namespace MvcMovie.Migrations
                     b.Property<int>("SupplierId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("UserId1")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("SupplierId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Purchases", (string)null);
 
@@ -832,37 +832,37 @@ namespace MvcMovie.Migrations
                         {
                             Id = 1,
                             Amount = 100m,
-                            Date = new DateTime(2025, 2, 16, 11, 9, 28, 301, DateTimeKind.Local).AddTicks(4360),
+                            Date = new DateTime(2025, 3, 3, 20, 43, 9, 209, DateTimeKind.Local).AddTicks(2020),
                             Deposit = 10m,
                             Discount = 10m,
-                            PurchaseDate = new DateTime(2025, 2, 16, 0, 0, 0, 0, DateTimeKind.Local),
+                            PurchaseDate = new DateTime(2025, 3, 3, 0, 0, 0, 0, DateTimeKind.Local),
                             Status = true,
                             SupplierId = 1,
-                            UserId = 2
+                            UserId1 = "three"
                         },
                         new
                         {
                             Id = 2,
                             Amount = 300m,
-                            Date = new DateTime(2025, 2, 16, 11, 9, 28, 301, DateTimeKind.Local).AddTicks(4370),
+                            Date = new DateTime(2025, 3, 3, 20, 43, 9, 209, DateTimeKind.Local).AddTicks(2030),
                             Deposit = 30m,
                             Discount = 30m,
-                            PurchaseDate = new DateTime(2025, 2, 16, 0, 0, 0, 0, DateTimeKind.Local),
+                            PurchaseDate = new DateTime(2025, 3, 3, 0, 0, 0, 0, DateTimeKind.Local),
                             Status = true,
                             SupplierId = 2,
-                            UserId = 3
+                            UserId1 = "one"
                         },
                         new
                         {
                             Id = 3,
                             Amount = 200m,
-                            Date = new DateTime(2025, 2, 16, 11, 9, 28, 301, DateTimeKind.Local).AddTicks(4370),
+                            Date = new DateTime(2025, 3, 3, 20, 43, 9, 209, DateTimeKind.Local).AddTicks(2030),
                             Deposit = 10m,
                             Discount = 10m,
-                            PurchaseDate = new DateTime(2025, 2, 16, 0, 0, 0, 0, DateTimeKind.Local),
+                            PurchaseDate = new DateTime(2025, 3, 3, 0, 0, 0, 0, DateTimeKind.Local),
                             Status = true,
                             SupplierId = 3,
-                            UserId = 1
+                            UserId1 = "two"
                         });
                 });
 
@@ -889,11 +889,16 @@ namespace MvcMovie.Migrations
                     b.Property<decimal>("Qty")
                         .HasColumnType("decimal(18,4)");
 
+                    b.Property<int>("UnitTypeId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
                     b.HasIndex("PurchaseId");
+
+                    b.HasIndex("UnitTypeId");
 
                     b.ToTable("PurchaseDetails", (string)null);
 
@@ -905,7 +910,8 @@ namespace MvcMovie.Migrations
                             Discount = 10m,
                             ProductId = 1,
                             PurchaseId = 1,
-                            Qty = 100m
+                            Qty = 100m,
+                            UnitTypeId = 1
                         },
                         new
                         {
@@ -914,7 +920,8 @@ namespace MvcMovie.Migrations
                             Discount = 30m,
                             ProductId = 2,
                             PurchaseId = 2,
-                            Qty = 230m
+                            Qty = 230m,
+                            UnitTypeId = 2
                         },
                         new
                         {
@@ -923,7 +930,8 @@ namespace MvcMovie.Migrations
                             Discount = 20m,
                             ProductId = 3,
                             PurchaseId = 3,
-                            Qty = 200m
+                            Qty = 200m,
+                            UnitTypeId = 3
                         });
                 });
 
@@ -947,10 +955,7 @@ namespace MvcMovie.Migrations
                     b.Property<int>("PurchaseId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -959,7 +964,7 @@ namespace MvcMovie.Migrations
 
                     b.HasIndex("PurchaseId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("PurchasePayments", (string)null);
 
@@ -968,28 +973,25 @@ namespace MvcMovie.Migrations
                         {
                             Id = 1,
                             PayAmount = 100m,
-                            PayDate = new DateTime(2025, 2, 16, 11, 9, 28, 301, DateTimeKind.Local).AddTicks(4880),
+                            PayDate = new DateTime(2025, 3, 3, 20, 43, 9, 209, DateTimeKind.Local).AddTicks(2530),
                             PaymentMethodId = 1,
-                            PurchaseId = 1,
-                            UserId = 2
+                            PurchaseId = 1
                         },
                         new
                         {
                             Id = 2,
                             PayAmount = 200m,
-                            PayDate = new DateTime(2025, 2, 16, 11, 9, 28, 301, DateTimeKind.Local).AddTicks(4880),
+                            PayDate = new DateTime(2025, 3, 3, 20, 43, 9, 209, DateTimeKind.Local).AddTicks(2540),
                             PaymentMethodId = 2,
-                            PurchaseId = 2,
-                            UserId = 1
+                            PurchaseId = 2
                         },
                         new
                         {
                             Id = 3,
                             PayAmount = 300m,
-                            PayDate = new DateTime(2025, 2, 16, 11, 9, 28, 301, DateTimeKind.Local).AddTicks(4880),
+                            PayDate = new DateTime(2025, 3, 3, 20, 43, 9, 209, DateTimeKind.Local).AddTicks(2540),
                             PaymentMethodId = 1,
-                            PurchaseId = 3,
-                            UserId = 3
+                            PurchaseId = 3
                         });
                 });
 
@@ -1211,7 +1213,7 @@ namespace MvcMovie.Migrations
                         .IsRequired();
 
                     b.HasOne("MvcMovie.Models.Category", "Category")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1266,7 +1268,7 @@ namespace MvcMovie.Migrations
 
                     b.HasOne("MvcMovie.Models.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Supplier");
 
@@ -1287,9 +1289,17 @@ namespace MvcMovie.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MvcMovie.Models.UnitType", "UnitType")
+                        .WithMany()
+                        .HasForeignKey("UnitTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Product");
 
                     b.Navigation("Purchase");
+
+                    b.Navigation("UnitType");
                 });
 
             modelBuilder.Entity("MvcMovie.Models.PurchasePayment", b =>
@@ -1308,7 +1318,7 @@ namespace MvcMovie.Migrations
 
                     b.HasOne("MvcMovie.Models.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("PaymentMethod");
 
@@ -1318,11 +1328,6 @@ namespace MvcMovie.Migrations
                 });
 
             modelBuilder.Entity("MvcMovie.Models.Branch", b =>
-                {
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("MvcMovie.Models.Category", b =>
                 {
                     b.Navigation("Products");
                 });

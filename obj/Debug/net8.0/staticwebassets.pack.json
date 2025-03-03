@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets/favicon.ico"
     },
     {
+      "Id": "/Users/yousyoeun/Documents/BBU/dotNet/mvc-dot-net/MvcMovie/wwwroot/images/customer/204a8552-8f63-4e30-8503-6815039f0a01.jpg",
+      "PackagePath": "staticwebassets/images/customer/204a8552-8f63-4e30-8503-6815039f0a01.jpg"
+    },
+    {
       "Id": "/Users/yousyoeun/Documents/BBU/dotNet/mvc-dot-net/MvcMovie/wwwroot/images/customer/2cb511a7-35b0-4d5a-a724-9df26fa424fa.jpg",
       "PackagePath": "staticwebassets/images/customer/2cb511a7-35b0-4d5a-a724-9df26fa424fa.jpg"
     },
@@ -23,6 +27,14 @@
     {
       "Id": "/Users/yousyoeun/Documents/BBU/dotNet/mvc-dot-net/MvcMovie/wwwroot/images/customer/985fc7f9-ad63-47b8-b658-d252ea12dff3.jpg",
       "PackagePath": "staticwebassets/images/customer/985fc7f9-ad63-47b8-b658-d252ea12dff3.jpg"
+    },
+    {
+      "Id": "/Users/yousyoeun/Documents/BBU/dotNet/mvc-dot-net/MvcMovie/wwwroot/images/customer/9c0fe622-17dc-4b92-9ea9-86aa4fc7c886.jpg",
+      "PackagePath": "staticwebassets/images/customer/9c0fe622-17dc-4b92-9ea9-86aa4fc7c886.jpg"
+    },
+    {
+      "Id": "/Users/yousyoeun/Documents/BBU/dotNet/mvc-dot-net/MvcMovie/wwwroot/images/customer/adcece5c-1e25-491a-8bba-6227f59828a8.jpeg",
+      "PackagePath": "staticwebassets/images/customer/adcece5c-1e25-491a-8bba-6227f59828a8.jpeg"
     },
     {
       "Id": "/Users/yousyoeun/Documents/BBU/dotNet/mvc-dot-net/MvcMovie/wwwroot/images/product/1c0f9166-7865-451d-8adb-eaef136bb158.jpg",

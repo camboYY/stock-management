@@ -36,6 +36,10 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Movies"
                                 asp-action="Index">Movies</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Purchase"
+                                asp-action="Index">Purchase</a>
+                        </li>
 
                         @if (User.IsInRole(SD.Role_Admin))
                         {
@@ -89,10 +93,7 @@
                                         <a class="dropdown-item" asp-area="" asp-controller="Customer"
                                             asp-action="Index">Customer</a>
                                     </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-area="" asp-controller="Purchase"
-                                            asp-action="Index">Purchase</a>
-                                    </li>
+
                                 </ul>
                             </div>
                         }
@@ -111,7 +112,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2025 - Movie App - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2025 - Stock App - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

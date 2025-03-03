@@ -6,6 +6,5 @@ public interface IPurchaseRepository : IRepository<Purchase>
 {
     void Update(Purchase purchase);
 
-    int SaveChanges();
 
 }
