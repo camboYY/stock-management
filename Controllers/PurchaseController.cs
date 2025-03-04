@@ -229,6 +229,7 @@ public class PurchaseController : Controller
             }
             catch (Exception ex)
             {
+                transaction.Rollback(); // Rollback transaction on error
                 return Content("Error: " + ex.Message);
             }
         }
