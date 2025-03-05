@@ -24,7 +24,6 @@ public class PurchasePayment
     [DisplayName("Payment Amount")]
     public double PayAmount { get; set; }
     [DisplayName("Paid By")]
-    public int UserId { get; set; }
     [ValidateNever]
     public ApplicationUser User { get; set; }
 }

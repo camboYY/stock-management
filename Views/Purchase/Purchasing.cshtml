@@ -3,7 +3,14 @@
 @{
     ViewData["Title"] = "Purchasing";
 }
-<table class="table">
+<select asp-items="@ViewData["SupplierList"] as IEnumerable<SelectListItem>" id="SupplierId">
+    <option disabled selected>--select Supplier--</option>
+</select>
+<p>
+    <input style="width: 100px;" type="number" name="deposit" id="sumDeposit" class="form-control"
+        placeholder="Deposit" />
+</p>
+<table class="table" id="dataTable">
     <thead>
         <tr>
             <th>
@@ -13,13 +20,13 @@
                 Title
             </th>
             <th>
-                Supplier
+                Items per Unit
             </th>
             <th>
                 Cost
             </th>
             <th>
-                Qty
+                Unit
             </th>
             <th>
                 Discount
@@ -27,7 +34,6 @@
             <th>
                 Total
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -41,21 +47,138 @@
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    <div class="form-group ">
-                        <label asp-for="@item.BranchId" class="control-label"></label>
-                        <select asp-for="@item.BranchId" asp-items="@ViewData["BranchList"] as IEnumerable<SelectListItem>"
-                            class="form-control ">
-                            <option disabled selected>--select Branch--</option>
-                        </select>
-                        <span asp-validation-for="@item.BranchId" class="text-danger"></span>
-                    </div>
+                    <select asp-items="@ViewData["UnitTypeList"] as IEnumerable<SelectListItem>" class="unitTypeId">
+                        <option disabled selected>--select UnitType--</option>
+                    </select>
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <input style="width: 100px;" type="number" name="cost" class="cost" oninput="calculateTotal(this)" />
                 </td>
+                <td>
+                    <input style="width: 100px;" type="number" name="unit" class="unit" oninput="calculateTotal(this)" />
+                </td>
+                <td>
+                    <input style="width: 100px;" type="number" name="discount" class="discount"
+                        oninput="calculateTotal(this)" />
+                </td>
+
+                <td>
+                    <p class="total">0</p>
+                </td>
+
             </tr>
         }
+
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4" style="text-align: right;"><strong>Total</strong></td>
+            <td id="sumCost"></td>
+            <td id="sumUnit"></td>
+            <td id="sumDiscount"></td>
+            <td id="sumTotal" style="font: bold;"></td>
+        </tr>
+    </tfoot>
 </table>
+<button class="confirm btn btn-outline-secondary" id="myButton">Confirm</button>
+
+@section scripts {
+    <script type="text/javascript">
+
+        function calculateTotal(element) {
+            // Get the current row
+            let row = element.closest("tr");
+
+            // Get the price and quantity from the row
+            let cost = row.querySelector(".cost").value || 0;
+            let unit = row.querySelector(".unit").value || 0;
+            let discount = row.querySelector(".discount").value || 0;
+            // Calculate the total
+            let total = parseFloat(cost) * parseFloat(unit);
+            let remainingCost = total - discount;
+            // Update the total column in that row
+            row.querySelector(".total").innerText = remainingCost.toFixed(2);
+            calculateTotals();
+        }
+
+
+        function calculateTotals() {
+            let sumCost = 0, sumTotal = 0, sumDiscount = 0, sumUnit = 0, sumPrice = 0;
+
+            document.querySelectorAll(".cost").forEach(cell => {
+                sumCost += parseFloat(cell.value) || 0;
+            });
+
+            document.querySelectorAll(".unit").forEach(cell => {
+                sumUnit += parseFloat(cell.value) || 0;
+            });
+            document.querySelectorAll(".discount").forEach(cell => {
+                sumDiscount += parseFloat(cell.value) || 0;
+            });
+
+
+            document.querySelectorAll(".total").forEach(cell => {
+                sumTotal += parseFloat(cell.innerText) || 0;
+            });
+
+
+            document.getElementById("sumDiscount").innerText = sumDiscount;
+            document.getElementById("sumCost").innerText = sumCost;
+            document.getElementById("sumUnit").innerText = sumUnit;
+            document.getElementById("sumTotal").innerText = sumTotal;
+
+            getTableData()
+
+        }
+
+        let tableDataSubmit = [];
+
+        function getTableData() {
+            let tableData = [];
+
+            document.querySelectorAll("#dataTable tbody tr").forEach(row => {
+                const rowData = {
+                    ProductId: parseInt(row.cells[0].innerText),
+                    Unit: parseInt(row.querySelector(".unit").value) || 0,
+                    Cost: parseFloat(row.querySelector(".cost").value) || 0,
+                    Discount: parseFloat(row.querySelector(".discount").value) || 0,
+                    UnitTypeId: parseInt(row.querySelector(".unitTypeId").value) || 0,
+                };
+
+                tableData.push(rowData);
+            });
+
+            let deposit = document.getElementById("sumDeposit").value || 0;
+
+            tableDataSubmit = {
+                list: tableData,
+                sum: {
+                    sumDiscount: parseFloat(document.getElementById("sumDiscount").innerText) || 0,
+                    sumCost: parseInt(document.getElementById("sumCost").innerText) || 0,
+                    sumDeposit: parseInt(deposit) || 0,
+                    sumTotal: parseInt(document.getElementById("sumTotal").innerText) || 0,
+                    SupplierId: parseInt(document.getElementById("SupplierId").value) || 0,
+                }
+            }
+
+        }
+
+        document.getElementById('myButton').addEventListener('click', function () {
+            console.log(window.location.href); // Should work properly here
+            $.ajax({
+                url: "/Purchase/OnConfirmPurchase",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(tableDataSubmit),
+                success: function (response) {
+                    window.location.href = response.redirectUrl;
+                },
+                error: function (xhr) {
+                    console.log({ xhr })
+                }
+            });
+        });
+
+
+    </script>
+}

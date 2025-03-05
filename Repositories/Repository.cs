@@ -73,5 +73,19 @@ namespace MvcMovie.Repositories
         {
             dbSet.RemoveRange(entities);
         }
+
+        public void AddRange(IEnumerable<T> entities)
+        {
+            dbSet.AddRange(entities);
+        }
+
+        public void UpdateRange(IEnumerable<T> entities)
+        {
+            foreach (var entity in entities)
+            {
+                _db.Entry(entity).State = EntityState.Modified;
+            }
+        }
+
     }
 }

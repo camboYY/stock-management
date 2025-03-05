@@ -51,3 +51,57 @@ body {
 .form-group {
   margin-top: 10px;
 }
+
+select {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #333;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Focus & Hover Effects */
+select:focus,
+select:hover {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
+
+/* Style dropdown arrow (only works in WebKit browsers) */
+select::-webkit-select-placeholder {
+  color: #aaa;
+}
+
+#customerId {
+  width: 20%;
+}
+
+input {
+  width: 100%;
+  padding: 7px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
+
+input::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+}

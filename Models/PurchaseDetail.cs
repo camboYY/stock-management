@@ -23,4 +23,8 @@ public class PurchaseDetail
     public double Discount { get; set; }
     [Column(TypeName = "decimal(18,4)")]
     public decimal Qty { get; set; }
+
+    public UnitType UnitType { get; set; }
+    [ValidateNever]
+    public int UnitTypeId { get; set; }
 }

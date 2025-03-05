@@ -6,7 +6,7 @@ namespace MvcMovie.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private MvcMovieContext _db;
+        public MvcMovieContext _db { get; set; }
         public IProductRepository Product { get; private set; }
         public ICategoryRepository Category { get; private set; }
         public IBranchRepository Branch { get; set; }
@@ -47,6 +47,12 @@ namespace MvcMovie.Repositories
         public void save()
         {
             _db.SaveChanges();
+        }
+
+
+        public void Dispose()
+        {
+            _db.Dispose();
         }
     }
 }

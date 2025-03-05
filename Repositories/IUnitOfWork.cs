@@ -1,9 +1,11 @@
 using MvcMovie.Controllers;
+using MvcMovie.Data;
 
 namespace MvcMovie.Repositories
 {
     public interface IUnitOfWork
     {
+        MvcMovieContext _db { get; }
         IProductRepository Product { get; }
         ICategoryRepository Category { get; }
         IBranchRepository Branch { get; }
@@ -21,6 +23,7 @@ namespace MvcMovie.Repositories
         IPurchasePaymentRepository PurchasePayment { get; }
         IPurchaseRepository Purchase { get; }
         void save();
+        void Dispose();
     }
 
 }

@@ -12,10 +12,11 @@ public class Purchase
     [Required]
     public DateTime? PurchaseDate { get; set; }
     public DateTime? Date { get; set; }
-    [DisplayName("Purchased By")]
-    public int UserId { get; set; }
-    [ValidateNever]
-    public ApplicationUser User { get; set; }
+
+    [DisplayName("Prepared By")]
+    public string? UserId1 { get; set; }  // Nullable to avoid migration errors
+    public ApplicationUser User { get; set; }  // Reference to Identity User
+
     [DisplayName("Supplier Name")]
     public int SupplierId { get; set; }
     [ValidateNever]
@@ -26,6 +27,8 @@ public class Purchase
     public double Discount { get; set; }
     [Column(TypeName = "decimal(18,4)")]
     public double Deposit { get; set; }
+    [DisplayName("Is Paid")]
     public bool Status { get; set; }
-    public string? PurchaseOrderNumber { get; set; }
+    [DisplayName("Invoice Code")]
+    public long? PurchaseOrderNumber { get; set; }
 }

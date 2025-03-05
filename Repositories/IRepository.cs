@@ -11,5 +11,7 @@ namespace MvcMovie.Repositories
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entity);
         Task<List<T>> GetList(Expression<Func<T, bool>> filter, string? inCludes = null);
+        void AddRange(IEnumerable<T> entities);
+        void UpdateRange(IEnumerable<T> entities);
     }
 }
