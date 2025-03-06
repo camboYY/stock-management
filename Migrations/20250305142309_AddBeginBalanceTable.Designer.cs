@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MvcMovie.Data;
 
@@ -11,9 +12,11 @@ using MvcMovie.Data;
 namespace MvcMovie.Migrations
 {
     [DbContext(typeof(MvcMovieContext))]
-    partial class MvcMovieContextModelSnapshot : ModelSnapshot
+    [Migration("20250305142309_AddBeginBalanceTable")]
+    partial class AddBeginBalanceTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -832,10 +835,10 @@ namespace MvcMovie.Migrations
                         {
                             Id = 1,
                             Amount = 100m,
-                            Date = new DateTime(2025, 3, 6, 16, 57, 23, 994, DateTimeKind.Local).AddTicks(6520),
+                            Date = new DateTime(2025, 3, 5, 21, 23, 6, 162, DateTimeKind.Local).AddTicks(6110),
                             Deposit = 10m,
                             Discount = 10m,
-                            PurchaseDate = new DateTime(2025, 3, 6, 0, 0, 0, 0, DateTimeKind.Local),
+                            PurchaseDate = new DateTime(2025, 3, 5, 0, 0, 0, 0, DateTimeKind.Local),
                             Status = true,
                             SupplierId = 1,
                             UserId1 = "three"
@@ -844,10 +847,10 @@ namespace MvcMovie.Migrations
                         {
                             Id = 2,
                             Amount = 300m,
-                            Date = new DateTime(2025, 3, 6, 16, 57, 23, 994, DateTimeKind.Local).AddTicks(6530),
+                            Date = new DateTime(2025, 3, 5, 21, 23, 6, 162, DateTimeKind.Local).AddTicks(6120),
                             Deposit = 30m,
                             Discount = 30m,
-                            PurchaseDate = new DateTime(2025, 3, 6, 0, 0, 0, 0, DateTimeKind.Local),
+                            PurchaseDate = new DateTime(2025, 3, 5, 0, 0, 0, 0, DateTimeKind.Local),
                             Status = true,
                             SupplierId = 2,
                             UserId1 = "one"
@@ -856,10 +859,10 @@ namespace MvcMovie.Migrations
                         {
                             Id = 3,
                             Amount = 200m,
-                            Date = new DateTime(2025, 3, 6, 16, 57, 23, 994, DateTimeKind.Local).AddTicks(6530),
+                            Date = new DateTime(2025, 3, 5, 21, 23, 6, 162, DateTimeKind.Local).AddTicks(6130),
                             Deposit = 10m,
                             Discount = 10m,
-                            PurchaseDate = new DateTime(2025, 3, 6, 0, 0, 0, 0, DateTimeKind.Local),
+                            PurchaseDate = new DateTime(2025, 3, 5, 0, 0, 0, 0, DateTimeKind.Local),
                             Status = true,
                             SupplierId = 3,
                             UserId1 = "two"
@@ -973,7 +976,7 @@ namespace MvcMovie.Migrations
                         {
                             Id = 1,
                             PayAmount = 100m,
-                            PayDate = new DateTime(2025, 3, 6, 16, 57, 23, 994, DateTimeKind.Local).AddTicks(7060),
+                            PayDate = new DateTime(2025, 3, 5, 21, 23, 6, 162, DateTimeKind.Local).AddTicks(7130),
                             PaymentMethodId = 1,
                             PurchaseId = 1
                         },
@@ -981,7 +984,7 @@ namespace MvcMovie.Migrations
                         {
                             Id = 2,
                             PayAmount = 200m,
-                            PayDate = new DateTime(2025, 3, 6, 16, 57, 23, 994, DateTimeKind.Local).AddTicks(7070),
+                            PayDate = new DateTime(2025, 3, 5, 21, 23, 6, 162, DateTimeKind.Local).AddTicks(7140),
                             PaymentMethodId = 2,
                             PurchaseId = 2
                         },
@@ -989,7 +992,7 @@ namespace MvcMovie.Migrations
                         {
                             Id = 3,
                             PayAmount = 300m,
-                            PayDate = new DateTime(2025, 3, 6, 16, 57, 23, 994, DateTimeKind.Local).AddTicks(7070),
+                            PayDate = new DateTime(2025, 3, 5, 21, 23, 6, 162, DateTimeKind.Local).AddTicks(7150),
                             PaymentMethodId = 1,
                             PurchaseId = 3
                         });
