@@ -19,13 +19,13 @@
                 @Html.DisplayNameFor(model => model.First().Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.First().Description)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.First().Author)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.First().ISBN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Cost)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.First().ListPrice)
@@ -71,13 +71,13 @@
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Author)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ISBN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cost)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ListPrice)
