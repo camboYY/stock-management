@@ -103,19 +103,23 @@
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <li>
                                         <a class="dropdown-item" asp-area="" asp-controller="ProductReport"
-                                            asp-action="ProductInStock">Product Instock</a>
+                                           asp-action="ProductQtyAlert">Product Qty Alert</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-area="" asp-controller="ProductReport"
+                                           asp-action="ProductInStock">Product Instock</a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" asp-area="" asp-controller="Purchase"
-                                            asp-action="Index">Product Price</a>
+                                           asp-action="Index">Product Price</a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" asp-area="" asp-controller="Purchase"
-                                            asp-action="Index">Top sold Products</a>
+                                           asp-action="Index">Top sold Products</a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" asp-area="" asp-controller="Purchase"
-                                            asp-action="Index">Product Out of Stock</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="ProductReport"
+                                           asp-action="ProductOutOfStock">Product Out of Stock</a>
                                     </li>
                                 </ul>
                             </div>
