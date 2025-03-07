@@ -157,7 +157,7 @@ public class PurchaseController : Controller
     {
         IEnumerable<PurchaseDetail>? filteredPurcahses = null;
         IPagedList<PurchaseDetail> purchaseDetails = await _unitOfWork.PurchaseDetail.GetAll(inCludes: "Purchase,UnitType,Product");
-        filteredPurcahses = purchaseDetails.ToList().Where(s => s.Id == Id);
+        filteredPurcahses = purchaseDetails.ToList().Where(s => s.PurchaseId == Id);
         return View(filteredPurcahses);
     }
 
