@@ -30,6 +30,21 @@ namespace MvcMovie.Controllers
             IPagedList<Product> products = new StaticPagedList<Product>(filteredProducts, page ?? 1, 10, filteredProducts.Count());
             return View(products);
         }
+
+        public async Task<IActionResult> ProductOutOfStock(int? page = 1)
+        {
+            var productsList = await _unitOfWork.Product.GetAll(inCludes: "Category,Branch,Supplier,Warehouse");
+            var filteredProducts = productsList.Where(p => p.QtyOnHand <= 0);
+            IPagedList<Product> products = new StaticPagedList<Product>(filteredProducts, page ?? 1, 10, filteredProducts.Count());
+            return View(products);
+        }
+        public async Task<IActionResult> ProductQtyAlert(int? page = 1)
+        {
+            var productsList = await _unitOfWork.Product.GetAll(inCludes: "Category,Branch,Supplier,Warehouse");
+            var filteredProducts = productsList.Where(p => p.QtyOnHand <= p.QtyAlert);
+            IPagedList<Product> products = new StaticPagedList<Product>(filteredProducts, page ?? 1, 10, filteredProducts.Count());
+            return View(products);
+        }
     }
 
 }
