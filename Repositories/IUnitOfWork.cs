@@ -20,6 +20,9 @@ namespace MvcMovie.Repositories
         IPurchaseDetailRepository PurchaseDetail { get; }
         IPurchasePaymentRepository PurchasePayment { get; }
         IPurchaseRepository Purchase { get; }
+        ISaleDetailRepository SaleDetail { get; }
+        ISalePaymentRepository SalePayment { get; }
+        ISaleRepository Sale { get; }
         void save();
         void Dispose();
     }

@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
@@ -9,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MvcMovie.Migrations
 {
     /// <inheritdoc />
-    public partial class FixCascadeIssue : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -355,6 +354,7 @@ namespace MvcMovie.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ISBN = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Author = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Cost = table.Column<double>(type: "float", nullable: false),
                     ListPrice = table.Column<double>(type: "float", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
                     Price50 = table.Column<double>(type: "float", nullable: false),
@@ -398,6 +398,47 @@ namespace MvcMovie.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Sales",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SaleDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PreparedBy = table.Column<int>(type: "int", nullable: false),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    Amount = table.Column<double>(type: "float", nullable: false),
+                    Discount = table.Column<double>(type: "float", nullable: false),
+                    Deposit = table.Column<double>(type: "float", nullable: false),
+                    WarehouseId = table.Column<int>(type: "int", nullable: false),
+                    InvoiceNumber = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false),
+                    RateId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sales", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Sales_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Sales_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Sales_Warehouses_WarehouseId",
+                        column: x => x.WarehouseId,
+                        principalTable: "Warehouses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PurchasePayments",
                 columns: table => new
                 {
@@ -422,13 +463,13 @@ namespace MvcMovie.Migrations
                         column: x => x.PaymentMethodId,
                         principalTable: "PaymentMethods",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PurchasePayments_Purchases_PurchaseId",
                         column: x => x.PurchaseId,
                         principalTable: "Purchases",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -481,7 +522,7 @@ namespace MvcMovie.Migrations
                         column: x => x.ProductId,
                         principalTable: "Product",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PurchaseDetails_Purchases_PurchaseId",
                         column: x => x.PurchaseId,
@@ -493,7 +534,79 @@ namespace MvcMovie.Migrations
                         column: x => x.UnitTypeId,
                         principalTable: "UnitTypes",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SaleDetails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SaleId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    UnitTypeId = table.Column<int>(type: "int", nullable: false),
+                    Cost = table.Column<double>(type: "float", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false),
+                    Qty = table.Column<double>(type: "float", nullable: false),
+                    Discount = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SaleDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SaleDetails_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Product",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SaleDetails_Sales_SaleId",
+                        column: x => x.SaleId,
+                        principalTable: "Sales",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_SaleDetails_UnitTypes_UnitTypeId",
+                        column: x => x.UnitTypeId,
+                        principalTable: "UnitTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SalePayments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SaleId = table.Column<int>(type: "int", nullable: false),
+                    PaymentMethodId = table.Column<int>(type: "int", nullable: false),
+                    PayDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PayAmount = table.Column<double>(type: "float", nullable: false),
+                    PreparedBy = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SalePayments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SalePayments_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_SalePayments_PaymentMethods_PaymentMethodId",
+                        column: x => x.PaymentMethodId,
+                        principalTable: "PaymentMethods",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SalePayments_Sales_SaleId",
+                        column: x => x.SaleId,
+                        principalTable: "Sales",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -589,15 +702,15 @@ namespace MvcMovie.Migrations
 
             migrationBuilder.InsertData(
                 table: "Product",
-                columns: new[] { "Id", "Author", "BranchId", "CategoryId", "Description", "ISBN", "ImageUrl", "ListPrice", "Price", "Price100", "Price50", "QtyAlert", "QtyOnHand", "StockType", "SupplierId", "Title", "WarehouseId" },
+                columns: new[] { "Id", "Author", "BranchId", "CategoryId", "Cost", "Description", "ISBN", "ImageUrl", "ListPrice", "Price", "Price100", "Price50", "QtyAlert", "QtyOnHand", "StockType", "SupplierId", "Title", "WarehouseId" },
                 values: new object[,]
                 {
-                    { 1, "Billy Spark", 1, 1, "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ", "SWD9999001", "", 99.0, 90.0, 80.0, 85.0, 1, 90m, "ABC", 1, "Fortune of Time", 1 },
-                    { 2, "Nancy Hoover", 1, 1, "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ", "CAW777777701", "", 40.0, 30.0, 20.0, 25.0, 1, 100m, "ABD", 2, "Dark Skies", 1 },
-                    { 3, "Julian Button", 2, 2, "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ", "RITO5555501", "", 55.0, 50.0, 35.0, 40.0, 1, 90m, "ABE", 1, "Vanish in the Sunset", 1 },
-                    { 4, "Abby Muscles", 2, 3, "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ", "WS3333333301", "", 70.0, 65.0, 55.0, 60.0, 1, 90m, "CBC", 2, "Cotton Candy", 2 },
-                    { 5, "Ron Parker", 3, 1, "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ", "SOTJ1111111101", "", 30.0, 27.0, 20.0, 25.0, 1, 90m, "AEC", 2, "Rock in the Ocean", 3 },
-                    { 6, "Laura Phantom", 3, 2, "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ", "FOT000000001", "", 25.0, 23.0, 20.0, 22.0, 1, 90m, "GBC", 3, "Leaves and Wonders", 3 }
+                    { 1, "Billy Spark", 1, 1, 0.0, "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ", "SWD9999001", "", 99.0, 90.0, 80.0, 85.0, 1, 90m, "ABC", 1, "Fortune of Time", 1 },
+                    { 2, "Nancy Hoover", 1, 1, 0.0, "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ", "CAW777777701", "", 40.0, 30.0, 20.0, 25.0, 1, 100m, "ABD", 2, "Dark Skies", 1 },
+                    { 3, "Julian Button", 2, 2, 0.0, "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ", "RITO5555501", "", 55.0, 50.0, 35.0, 40.0, 1, 90m, "ABE", 1, "Vanish in the Sunset", 1 },
+                    { 4, "Abby Muscles", 2, 3, 0.0, "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ", "WS3333333301", "", 70.0, 65.0, 55.0, 60.0, 1, 90m, "CBC", 2, "Cotton Candy", 2 },
+                    { 5, "Ron Parker", 3, 1, 0.0, "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ", "SOTJ1111111101", "", 30.0, 27.0, 20.0, 25.0, 1, 90m, "AEC", 2, "Rock in the Ocean", 3 },
+                    { 6, "Laura Phantom", 3, 2, 0.0, "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ", "FOT000000001", "", 25.0, 23.0, 20.0, 22.0, 1, 90m, "GBC", 3, "Leaves and Wonders", 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -605,9 +718,9 @@ namespace MvcMovie.Migrations
                 columns: new[] { "Id", "Amount", "Date", "Deposit", "Discount", "PurchaseDate", "PurchaseOrderNumber", "Status", "SupplierId", "UserId", "UserId1" },
                 values: new object[,]
                 {
-                    { 1, 100m, new DateTime(2025, 3, 3, 20, 43, 9, 209, DateTimeKind.Local).AddTicks(2020), 10m, 10m, new DateTime(2025, 3, 3, 0, 0, 0, 0, DateTimeKind.Local), null, true, 1, null, "three" },
-                    { 2, 300m, new DateTime(2025, 3, 3, 20, 43, 9, 209, DateTimeKind.Local).AddTicks(2030), 30m, 30m, new DateTime(2025, 3, 3, 0, 0, 0, 0, DateTimeKind.Local), null, true, 2, null, "one" },
-                    { 3, 200m, new DateTime(2025, 3, 3, 20, 43, 9, 209, DateTimeKind.Local).AddTicks(2030), 10m, 10m, new DateTime(2025, 3, 3, 0, 0, 0, 0, DateTimeKind.Local), null, true, 3, null, "two" }
+                    { 1, 100m, new DateTime(2025, 3, 8, 14, 19, 15, 795, DateTimeKind.Local).AddTicks(3526), 10m, 10m, new DateTime(2025, 3, 8, 0, 0, 0, 0, DateTimeKind.Local), null, true, 1, null, "three" },
+                    { 2, 300m, new DateTime(2025, 3, 8, 14, 19, 15, 795, DateTimeKind.Local).AddTicks(3530), 30m, 30m, new DateTime(2025, 3, 8, 0, 0, 0, 0, DateTimeKind.Local), null, true, 2, null, "one" },
+                    { 3, 200m, new DateTime(2025, 3, 8, 14, 19, 15, 795, DateTimeKind.Local).AddTicks(3534), 10m, 10m, new DateTime(2025, 3, 8, 0, 0, 0, 0, DateTimeKind.Local), null, true, 3, null, "two" }
                 });
 
             migrationBuilder.InsertData(
@@ -635,9 +748,9 @@ namespace MvcMovie.Migrations
                 columns: new[] { "Id", "PayAmount", "PayDate", "PaymentMethodId", "PurchaseId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 100m, new DateTime(2025, 3, 3, 20, 43, 9, 209, DateTimeKind.Local).AddTicks(2530), 1, 1, null },
-                    { 2, 200m, new DateTime(2025, 3, 3, 20, 43, 9, 209, DateTimeKind.Local).AddTicks(2540), 2, 2, null },
-                    { 3, 300m, new DateTime(2025, 3, 3, 20, 43, 9, 209, DateTimeKind.Local).AddTicks(2540), 1, 3, null }
+                    { 1, 100m, new DateTime(2025, 3, 8, 14, 19, 15, 795, DateTimeKind.Local).AddTicks(4263), 1, 1, null },
+                    { 2, 200m, new DateTime(2025, 3, 8, 14, 19, 15, 795, DateTimeKind.Local).AddTicks(4266), 2, 2, null },
+                    { 3, 300m, new DateTime(2025, 3, 8, 14, 19, 15, 795, DateTimeKind.Local).AddTicks(4268), 1, 3, null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -748,6 +861,51 @@ namespace MvcMovie.Migrations
                 name: "IX_Purchases_UserId",
                 table: "Purchases",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SaleDetails_ProductId",
+                table: "SaleDetails",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SaleDetails_SaleId",
+                table: "SaleDetails",
+                column: "SaleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SaleDetails_UnitTypeId",
+                table: "SaleDetails",
+                column: "UnitTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SalePayments_PaymentMethodId",
+                table: "SalePayments",
+                column: "PaymentMethodId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SalePayments_SaleId",
+                table: "SalePayments",
+                column: "SaleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SalePayments_UserId",
+                table: "SalePayments",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sales_ApplicationUserId",
+                table: "Sales",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sales_CustomerId",
+                table: "Sales",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sales_WarehouseId",
+                table: "Sales",
+                column: "WarehouseId");
         }
 
         /// <inheritdoc />
@@ -769,9 +927,6 @@ namespace MvcMovie.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Customers");
-
-            migrationBuilder.DropTable(
                 name: "Movie");
 
             migrationBuilder.DropTable(
@@ -790,7 +945,16 @@ namespace MvcMovie.Migrations
                 name: "PurchasePayments");
 
             migrationBuilder.DropTable(
+                name: "SaleDetails");
+
+            migrationBuilder.DropTable(
+                name: "SalePayments");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Purchases");
 
             migrationBuilder.DropTable(
                 name: "Product");
@@ -802,7 +966,7 @@ namespace MvcMovie.Migrations
                 name: "PaymentMethods");
 
             migrationBuilder.DropTable(
-                name: "Purchases");
+                name: "Sales");
 
             migrationBuilder.DropTable(
                 name: "Branches");
@@ -811,13 +975,16 @@ namespace MvcMovie.Migrations
                 name: "Category");
 
             migrationBuilder.DropTable(
-                name: "Warehouses");
+                name: "Suppliers");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Suppliers");
+                name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "Warehouses");
         }
     }
 }
