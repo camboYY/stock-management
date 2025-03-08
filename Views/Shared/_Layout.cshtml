@@ -98,6 +98,34 @@
                                     </li>
                                 </ul>
                             </div>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Report
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li>
+                                        <a class="dropdown-item" asp-area="" asp-controller="ProductReport"
+                                           asp-action="ProductQtyAlert">Product Qty Alert</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-area="" asp-controller="ProductReport"
+                                           asp-action="ProductInStock">Product Instock</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Purchase"
+                                           asp-action="Index">Product Price</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Purchase"
+                                           asp-action="Index">Top sold Products</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-area="" asp-controller="ProductReport"
+                                           asp-action="ProductOutOfStock">Product Out of Stock</a>
+                                    </li>
+                                </ul>
+                            </div>
                         }
                     </ul>
                     <partial name="_LoginPartial" />

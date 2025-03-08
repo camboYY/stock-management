@@ -1,0 +1,109 @@
+@model X.PagedList.IPagedList<MvcMovie.Models.Product>
+
+    @using X.PagedList.Mvc
+    @using X.PagedList.Mvc.Core
+
+    @{
+    ViewData["Title"] = "Product Qty Alert Report";
+    }
+
+    <h3>Product Qty Alert Report</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Author)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().ISBN)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().ListPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Price50)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Price100)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().StockType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().QtyOnHand)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().QtyAlert)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Category.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Branch.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Supplier.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Warehouse.Name)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ISBN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ListPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price50)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price100)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StockType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QtyOnHand)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QtyAlert)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Branch.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Supplier.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Warehouse.Name)
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

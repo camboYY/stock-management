@@ -1,4 +1,4 @@
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -102,17 +102,31 @@ public class PurchaseController : Controller
             }
             else
             {
+                var p_id = 0;
                 using (var transaction = _unitOfWork._db.Database.BeginTransaction())
                 {
                     try
                     {
                         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Get User ID
 
-                        var newPurchase = new Purchase { PurchaseOrderNumber = GenerateTimestampNumber(), PurchaseDate = DateTime.Today, Date = DateTime.Now, UserId1 = userId, SupplierId = purchase.sum.SupplierId, Amount = purchase.sum.sumTotal, Deposit = purchase.sum.sumDeposit, Discount = purchase.sum.sumDiscount, Status = false };
+                        var newPurchase = new Purchase
+                        {
+                            PurchaseOrderNumber = GenerateTimestampNumber(),
+                            PurchaseDate = DateTime.Today,
+                            Date = DateTime.Now,
+                            UserId1 = userId,
+                            SupplierId = purchase.sum.SupplierId,
+                            Amount = purchase.sum.sumTotal,
+                            Deposit = purchase.sum.sumDeposit,
+                            Discount = purchase.sum.sumDiscount,
+                            Status = false
+                        };
+
                         _unitOfWork.Purchase.Add(newPurchase);
                         _unitOfWork.save();
+                        p_id = newPurchase.Id;
 
-                        var purchaseDetail = new List<PurchaseDetail> { };
+                        var purchaseDetail = new List<PurchaseDetail>();
 
                         foreach (ConfirmPurchase confirmPurchase in purchase.list)
                         {
@@ -125,6 +139,22 @@ public class PurchaseController : Controller
                                 Qty = confirmPurchase.Unit,
                                 UnitTypeId = confirmPurchase.UnitTypeId
                             });
+                            var item = await _unitOfWork.Product.Get(p => p.Id == confirmPurchase.ProductId);
+                            if (item != null)
+                            {
+                                // Ensure consistent use of decimal for financial calculations
+                                if (item.QtyOnHand == 0) // First Purchase
+                                {
+                                    item.Cost = confirmPurchase.Cost;
+                                }
+                                else
+                                {
+                                    item.Cost = ((double)item.Cost * (double)item.QtyOnHand + (double)confirmPurchase.Cost * (double)confirmPurchase.Unit) / ((double)item.QtyOnHand + (double)confirmPurchase.Unit);
+                                }
+
+                                item.QtyOnHand += (double)confirmPurchase.Unit; // Update InStock quantity
+                                _unitOfWork.Product.Update(item);
+                            }
                         }
 
                         _unitOfWork.PurchaseDetail.AddRange(purchaseDetail);
@@ -141,10 +171,9 @@ public class PurchaseController : Controller
                     }
                 }
             }
-
         }
-
     }
+
 
     [HttpGet]
     public async Task<IActionResult> Payment(int? page = 1)
@@ -157,7 +186,7 @@ public class PurchaseController : Controller
     {
         IEnumerable<PurchaseDetail>? filteredPurcahses = null;
         IPagedList<PurchaseDetail> purchaseDetails = await _unitOfWork.PurchaseDetail.GetAll(inCludes: "Purchase,UnitType,Product");
-        filteredPurcahses = purchaseDetails.ToList().Where(s => s.Id == Id);
+        filteredPurcahses = purchaseDetails.ToList().Where(s => s.PurchaseId == Id);
         return View(filteredPurcahses);
     }
 
