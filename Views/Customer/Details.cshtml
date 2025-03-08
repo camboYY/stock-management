@@ -5,48 +5,45 @@
     string image = Model.Image;
 }
 
-<div class="container my-4">
-    <div class="card">
-        <div class="card-header">
-            <h4>Customer Details</h4>
-        </div>
-        <div class="card-body">
-            <dl class="row">
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Name)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Name)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Sex)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Sex)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.PhoneNumber)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.PhoneNumber)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Address)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Address)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Image)
-                </dt>
-                <dd class="col-sm-10">
-                    <img src="@image" class="img-fluid rounded w-25" alt="Customer Image" />
-                </dd>
-            </dl>
-        </div>
-        <div class="card-footer text-end">
-            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning me-2">Edit</a>
-            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-        </div>
-    </div>
+<h1>Details</h1>
+
+<div>
+    <h4>Supplier</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Sex)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Sex)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@image" class="card-img-top rounded w-25" />
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
 </div>

@@ -14,19 +14,12 @@ namespace MvcMovie.Repositories
         IProductUnitRepository ProductUnit { get; }
         IUnitTypeRepository UnitType { get; }
         IPaymentMethodRepository PaymentMethod { get; }
-
-        IRateRepository Rate { get; }
         IOtherExpenseTypeRepository OtherExpenseType { get; }
         IOtherIncomeTypeRepository OtherIncomeType { get; }
         ICustomerRepository Customer { get; }
         IPurchaseDetailRepository PurchaseDetail { get; }
         IPurchasePaymentRepository PurchasePayment { get; }
         IPurchaseRepository Purchase { get; }
-
-        ISaleRepository Sale { get; }
-
-        
-
         void save();
         void Dispose();
     }

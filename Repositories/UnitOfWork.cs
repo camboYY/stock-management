@@ -22,9 +22,6 @@ namespace MvcMovie.Repositories
         public IPurchasePaymentRepository PurchasePayment { get; set; }
         public IPurchaseRepository Purchase { get; set; }
 
-        public IRateRepository Rate { get; set; }
-
-        public ISaleRepository Sale { get; set; }
 
         public UnitOfWork(MvcMovieContext db)
         {
@@ -43,8 +40,6 @@ namespace MvcMovie.Repositories
             PurchaseDetail = new PurchaseDetailRepository(_db);
             PurchasePayment = new PurchasePaymentRepository(_db);
             Purchase = new PurchaseRepository(_db);
-            Rate = new RateRepository(_db);
-            Sale = new SaleRepository(_db);
         }
 
         public void save()
