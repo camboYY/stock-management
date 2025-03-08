@@ -5,6 +5,8 @@ namespace MvcMovie.Repositories
 {
     public interface IProductRepository : IRepository<Product> 
     {
-         void Update(Product product);
+        Task<IEnumerable<Product>> GetAll(Func<Product, bool> value);
+
+        void Update(Product product);
     }
 }
