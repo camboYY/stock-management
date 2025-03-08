@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace MvcMovie.Models;
 
 public class SalePayment
 {
+    [Key]
     public int Id { set; get; }
     public int SaleId { get; set; }
     [ValidateNever]
@@ -15,5 +17,5 @@ public class SalePayment
     public double PayAmount { get; set; }
     public int PreparedBy { get; set; }
     [ValidateNever]
-    public ApplicationUser ApplicationUser { get; set; }
+    public ApplicationUser User { get; set; }
 }

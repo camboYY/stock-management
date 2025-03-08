@@ -29,6 +29,9 @@ namespace MvcMovie.Data
         public DbSet<Purchase> Purchases { get; set; }
         public DbSet<PurchaseDetail> PurchaseDetails { get; set; }
         public DbSet<PurchasePayment> PurchasePayments { get; set; }
+        public DbSet<Sale> Sales { get; set; }
+        public DbSet<SaleDetail> SaleDetails { get; set; }
+        public DbSet<SalePayment> SalePayments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

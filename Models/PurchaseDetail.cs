@@ -10,9 +10,11 @@ public class PurchaseDetail
     [Key]
     public int Id { get; set; }
     [DisplayName("Purchase")]
+
     public int PurchaseId { get; set; }
     [ValidateNever]
     public Purchase Purchase { get; set; }
+
     [DisplayName("Product")]
     public int ProductId { set; get; }
     [ValidateNever]

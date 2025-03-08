@@ -841,10 +841,10 @@ namespace MvcMovie.Migrations
                         {
                             Id = 1,
                             Amount = 100m,
-                            Date = new DateTime(2025, 3, 7, 22, 14, 41, 741, DateTimeKind.Local).AddTicks(5541),
+                            Date = new DateTime(2025, 3, 8, 14, 19, 15, 795, DateTimeKind.Local).AddTicks(3526),
                             Deposit = 10m,
                             Discount = 10m,
-                            PurchaseDate = new DateTime(2025, 3, 7, 0, 0, 0, 0, DateTimeKind.Local),
+                            PurchaseDate = new DateTime(2025, 3, 8, 0, 0, 0, 0, DateTimeKind.Local),
                             Status = true,
                             SupplierId = 1,
                             UserId1 = "three"
@@ -853,10 +853,10 @@ namespace MvcMovie.Migrations
                         {
                             Id = 2,
                             Amount = 300m,
-                            Date = new DateTime(2025, 3, 7, 22, 14, 41, 741, DateTimeKind.Local).AddTicks(5546),
+                            Date = new DateTime(2025, 3, 8, 14, 19, 15, 795, DateTimeKind.Local).AddTicks(3530),
                             Deposit = 30m,
                             Discount = 30m,
-                            PurchaseDate = new DateTime(2025, 3, 7, 0, 0, 0, 0, DateTimeKind.Local),
+                            PurchaseDate = new DateTime(2025, 3, 8, 0, 0, 0, 0, DateTimeKind.Local),
                             Status = true,
                             SupplierId = 2,
                             UserId1 = "one"
@@ -865,10 +865,10 @@ namespace MvcMovie.Migrations
                         {
                             Id = 3,
                             Amount = 200m,
-                            Date = new DateTime(2025, 3, 7, 22, 14, 41, 741, DateTimeKind.Local).AddTicks(5550),
+                            Date = new DateTime(2025, 3, 8, 14, 19, 15, 795, DateTimeKind.Local).AddTicks(3534),
                             Deposit = 10m,
                             Discount = 10m,
-                            PurchaseDate = new DateTime(2025, 3, 7, 0, 0, 0, 0, DateTimeKind.Local),
+                            PurchaseDate = new DateTime(2025, 3, 8, 0, 0, 0, 0, DateTimeKind.Local),
                             Status = true,
                             SupplierId = 3,
                             UserId1 = "two"
@@ -982,7 +982,7 @@ namespace MvcMovie.Migrations
                         {
                             Id = 1,
                             PayAmount = 100m,
-                            PayDate = new DateTime(2025, 3, 7, 22, 14, 41, 741, DateTimeKind.Local).AddTicks(6186),
+                            PayDate = new DateTime(2025, 3, 8, 14, 19, 15, 795, DateTimeKind.Local).AddTicks(4263),
                             PaymentMethodId = 1,
                             PurchaseId = 1
                         },
@@ -990,7 +990,7 @@ namespace MvcMovie.Migrations
                         {
                             Id = 2,
                             PayAmount = 200m,
-                            PayDate = new DateTime(2025, 3, 7, 22, 14, 41, 741, DateTimeKind.Local).AddTicks(6188),
+                            PayDate = new DateTime(2025, 3, 8, 14, 19, 15, 795, DateTimeKind.Local).AddTicks(4266),
                             PaymentMethodId = 2,
                             PurchaseId = 2
                         },
@@ -998,10 +998,142 @@ namespace MvcMovie.Migrations
                         {
                             Id = 3,
                             PayAmount = 300m,
-                            PayDate = new DateTime(2025, 3, 7, 22, 14, 41, 741, DateTimeKind.Local).AddTicks(6190),
+                            PayDate = new DateTime(2025, 3, 8, 14, 19, 15, 795, DateTimeKind.Local).AddTicks(4268),
                             PaymentMethodId = 1,
                             PurchaseId = 3
                         });
+                });
+
+            modelBuilder.Entity("MvcMovie.Models.Sale", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("Deposit")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Discount")
+                        .HasColumnType("float");
+
+                    b.Property<int>("InvoiceNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PreparedBy")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RateId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SaleDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("WarehouseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("WarehouseId");
+
+                    b.ToTable("Sales");
+                });
+
+            modelBuilder.Entity("MvcMovie.Models.SaleDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("Cost")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Discount")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Qty")
+                        .HasColumnType("float");
+
+                    b.Property<int>("SaleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UnitTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("SaleId");
+
+                    b.HasIndex("UnitTypeId");
+
+                    b.ToTable("SaleDetails");
+                });
+
+            modelBuilder.Entity("MvcMovie.Models.SalePayment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("PayAmount")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("PayDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PaymentMethodId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PreparedBy")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SaleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PaymentMethodId");
+
+                    b.HasIndex("SaleId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("SalePayments");
                 });
 
             modelBuilder.Entity("MvcMovie.Models.Supplier", b =>
@@ -1332,6 +1464,83 @@ namespace MvcMovie.Migrations
                     b.Navigation("PaymentMethod");
 
                     b.Navigation("Purchase");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MvcMovie.Models.Sale", b =>
+                {
+                    b.HasOne("MvcMovie.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("MvcMovie.Models.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MvcMovie.Models.Warehouse", "Warehouse")
+                        .WithMany()
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Warehouse");
+                });
+
+            modelBuilder.Entity("MvcMovie.Models.SaleDetail", b =>
+                {
+                    b.HasOne("MvcMovie.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MvcMovie.Models.Sale", "Sale")
+                        .WithMany()
+                        .HasForeignKey("SaleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MvcMovie.Models.UnitType", "UnitType")
+                        .WithMany()
+                        .HasForeignKey("UnitTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Sale");
+
+                    b.Navigation("UnitType");
+                });
+
+            modelBuilder.Entity("MvcMovie.Models.SalePayment", b =>
+                {
+                    b.HasOne("MvcMovie.Models.PaymentMethod", "PaymentMethod")
+                        .WithMany()
+                        .HasForeignKey("PaymentMethodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MvcMovie.Models.Sale", "Sale")
+                        .WithMany()
+                        .HasForeignKey("SaleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MvcMovie.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("PaymentMethod");
+
+                    b.Navigation("Sale");
 
                     b.Navigation("User");
                 });
