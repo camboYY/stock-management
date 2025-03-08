@@ -26,6 +26,8 @@ namespace MvcMovie.Repositories
         public ISaleRepository Sale { get; set; }
 
 
+        public IRateRepository Rate { get; set; }
+
         public UnitOfWork(MvcMovieContext db)
         {
             _db = db;
@@ -47,6 +49,7 @@ namespace MvcMovie.Repositories
             SalePayment = new SalePaymentRepository(_db);
             Sale = new SaleRepository(_db);
            
+            Rate = new RateRepository(_db);
         }
 
         public void save()
