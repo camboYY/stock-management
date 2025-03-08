@@ -27,4 +27,6 @@ public class Sale
 
     public int RateId { get; set; }
 
+    public List<SaleDetail> SaleDetails { get; set; } = new List<SaleDetail>();
+
 }

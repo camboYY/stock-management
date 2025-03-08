@@ -13,5 +13,8 @@ namespace MvcMovie.Repositories
         Task<List<T>> GetList(Expression<Func<T, bool>> filter, string? inCludes = null);
         void AddRange(IEnumerable<T> entities);
         void UpdateRange(IEnumerable<T> entities);
+
+        Task<bool> Exists(Expression<Func<T, bool>> predicate);
+        
     }
 }

@@ -13,6 +13,12 @@ namespace MvcMovie.Repositories
         {
             _db = db;
         }
+        
+
+         public async Task<IEnumerable<Product>> GetAll(Func<Product, bool> value)
+        {
+            return _db.Product.Where(value).ToList();
+        }
 
         public  void Update(Product product)
         {
