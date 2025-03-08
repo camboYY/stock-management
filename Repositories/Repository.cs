@@ -33,11 +33,6 @@ namespace MvcMovie.Repositories
             return await query.FirstAsync(filter);
         }
 
-        public async Task<bool> Exists(Expression<Func<T, bool>> predicate)
-        {
-            return await dbSet.AnyAsync(predicate);
-        }
-
         public async Task<IPagedList<T>> GetAll(int? page = 1, string? inCludes = null)
         {
             int pageSize = 10;
