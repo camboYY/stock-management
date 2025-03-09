@@ -408,7 +408,7 @@ namespace MvcMovie.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ISBN = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Author = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cost = table.Column<double>(type: "float", nullable: false),
+                    Cost = table.Column<double>(type: "float", nullable: true),
                     ListPrice = table.Column<double>(type: "float", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
                     Price50 = table.Column<double>(type: "float", nullable: false),
@@ -718,12 +718,12 @@ namespace MvcMovie.Migrations
                 columns: new[] { "Id", "Author", "BranchId", "CategoryId", "Cost", "Description", "ISBN", "ImageUrl", "ListPrice", "Price", "Price100", "Price50", "QtyAlert", "QtyOnHand", "StockType", "SupplierId", "Title", "WarehouseId" },
                 values: new object[,]
                 {
-                    { 1, "Billy Spark", 1, 1, 0.0, "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ", "SWD9999001", "", 99.0, 90.0, 80.0, 85.0, 1, 90m, "ABC", 1, "Fortune of Time", 1 },
-                    { 2, "Nancy Hoover", 1, 1, 0.0, "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ", "CAW777777701", "", 40.0, 30.0, 20.0, 25.0, 1, 100m, "ABD", 2, "Dark Skies", 1 },
-                    { 3, "Julian Button", 2, 2, 0.0, "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ", "RITO5555501", "", 55.0, 50.0, 35.0, 40.0, 1, 90m, "ABE", 1, "Vanish in the Sunset", 1 },
-                    { 4, "Abby Muscles", 2, 3, 0.0, "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ", "WS3333333301", "", 70.0, 65.0, 55.0, 60.0, 1, 90m, "CBC", 2, "Cotton Candy", 2 },
-                    { 5, "Ron Parker", 3, 1, 0.0, "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ", "SOTJ1111111101", "", 30.0, 27.0, 20.0, 25.0, 1, 90m, "AEC", 2, "Rock in the Ocean", 3 },
-                    { 6, "Laura Phantom", 3, 2, 0.0, "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ", "FOT000000001", "", 25.0, 23.0, 20.0, 22.0, 1, 90m, "GBC", 3, "Leaves and Wonders", 3 }
+                    { 1, "Billy Spark", 1, 1, null, "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ", "SWD9999001", "", 99.0, 90.0, 80.0, 85.0, 1, 90m, "ABC", 1, "Fortune of Time", 1 },
+                    { 2, "Nancy Hoover", 1, 1, null, "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ", "CAW777777701", "", 40.0, 30.0, 20.0, 25.0, 1, 100m, "ABD", 2, "Dark Skies", 1 },
+                    { 3, "Julian Button", 2, 2, null, "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ", "RITO5555501", "", 55.0, 50.0, 35.0, 40.0, 1, 90m, "ABE", 1, "Vanish in the Sunset", 1 },
+                    { 4, "Abby Muscles", 2, 3, null, "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ", "WS3333333301", "", 70.0, 65.0, 55.0, 60.0, 1, 90m, "CBC", 2, "Cotton Candy", 2 },
+                    { 5, "Ron Parker", 3, 1, null, "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ", "SOTJ1111111101", "", 30.0, 27.0, 20.0, 25.0, 1, 90m, "AEC", 2, "Rock in the Ocean", 3 },
+                    { 6, "Laura Phantom", 3, 2, null, "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ", "FOT000000001", "", 25.0, 23.0, 20.0, 22.0, 1, 90m, "GBC", 3, "Leaves and Wonders", 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -731,9 +731,9 @@ namespace MvcMovie.Migrations
                 columns: new[] { "Id", "Amount", "Date", "Deposit", "Discount", "PurchaseDate", "PurchaseOrderNumber", "Status", "SupplierId", "UserId", "UserId1" },
                 values: new object[,]
                 {
-                    { 1, 100m, new DateTime(2025, 3, 9, 13, 46, 57, 944, DateTimeKind.Local).AddTicks(6561), 10m, 10m, new DateTime(2025, 3, 9, 0, 0, 0, 0, DateTimeKind.Local), null, true, 1, null, "three" },
-                    { 2, 300m, new DateTime(2025, 3, 9, 13, 46, 57, 944, DateTimeKind.Local).AddTicks(6633), 30m, 30m, new DateTime(2025, 3, 9, 0, 0, 0, 0, DateTimeKind.Local), null, true, 2, null, "one" },
-                    { 3, 200m, new DateTime(2025, 3, 9, 13, 46, 57, 944, DateTimeKind.Local).AddTicks(6638), 10m, 10m, new DateTime(2025, 3, 9, 0, 0, 0, 0, DateTimeKind.Local), null, true, 3, null, "two" }
+                    { 1, 100m, new DateTime(2025, 3, 9, 21, 29, 49, 889, DateTimeKind.Local).AddTicks(7993), 10m, 10m, new DateTime(2025, 3, 9, 0, 0, 0, 0, DateTimeKind.Local), null, true, 1, null, "three" },
+                    { 2, 300m, new DateTime(2025, 3, 9, 21, 29, 49, 889, DateTimeKind.Local).AddTicks(7999), 30m, 30m, new DateTime(2025, 3, 9, 0, 0, 0, 0, DateTimeKind.Local), null, true, 2, null, "one" },
+                    { 3, 200m, new DateTime(2025, 3, 9, 21, 29, 49, 889, DateTimeKind.Local).AddTicks(8002), 10m, 10m, new DateTime(2025, 3, 9, 0, 0, 0, 0, DateTimeKind.Local), null, true, 3, null, "two" }
                 });
 
             migrationBuilder.InsertData(
@@ -764,9 +764,9 @@ namespace MvcMovie.Migrations
                 columns: new[] { "Id", "PayAmount", "PayDate", "PaymentMethodId", "PurchaseId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 100m, new DateTime(2025, 3, 9, 13, 46, 57, 944, DateTimeKind.Local).AddTicks(7484), 1, 1, null },
-                    { 2, 200m, new DateTime(2025, 3, 9, 13, 46, 57, 944, DateTimeKind.Local).AddTicks(7487), 2, 2, null },
-                    { 3, 300m, new DateTime(2025, 3, 9, 13, 46, 57, 944, DateTimeKind.Local).AddTicks(7489), 1, 3, null }
+                    { 1, 100m, new DateTime(2025, 3, 9, 21, 29, 49, 889, DateTimeKind.Local).AddTicks(8643), 1, 1, null },
+                    { 2, 200m, new DateTime(2025, 3, 9, 21, 29, 49, 889, DateTimeKind.Local).AddTicks(8646), 2, 2, null },
+                    { 3, 300m, new DateTime(2025, 3, 9, 21, 29, 49, 889, DateTimeKind.Local).AddTicks(8648), 1, 3, null }
                 });
 
             migrationBuilder.CreateIndex(

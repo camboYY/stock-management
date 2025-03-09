@@ -12,7 +12,7 @@ using MvcMovie.Data;
 namespace MvcMovie.Migrations
 {
     [DbContext(typeof(MvcMovieContext))]
-    [Migration("20250309064659_first")]
+    [Migration("20250309142954_first")]
     partial class first
     {
         /// <inheritdoc />
@@ -546,7 +546,7 @@ namespace MvcMovie.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Cost")
+                    b.Property<double?>("Cost")
                         .HasColumnType("float");
 
                     b.Property<string>("Description")
@@ -609,7 +609,6 @@ namespace MvcMovie.Migrations
                             Author = "Billy Spark",
                             BranchId = 1,
                             CategoryId = 1,
-                            Cost = 0.0,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "SWD9999001",
                             ImageUrl = "",
@@ -630,7 +629,6 @@ namespace MvcMovie.Migrations
                             Author = "Nancy Hoover",
                             BranchId = 1,
                             CategoryId = 1,
-                            Cost = 0.0,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "CAW777777701",
                             ImageUrl = "",
@@ -651,7 +649,6 @@ namespace MvcMovie.Migrations
                             Author = "Julian Button",
                             BranchId = 2,
                             CategoryId = 2,
-                            Cost = 0.0,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "RITO5555501",
                             ImageUrl = "",
@@ -672,7 +669,6 @@ namespace MvcMovie.Migrations
                             Author = "Abby Muscles",
                             BranchId = 2,
                             CategoryId = 3,
-                            Cost = 0.0,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "WS3333333301",
                             ImageUrl = "",
@@ -693,7 +689,6 @@ namespace MvcMovie.Migrations
                             Author = "Ron Parker",
                             BranchId = 3,
                             CategoryId = 1,
-                            Cost = 0.0,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "SOTJ1111111101",
                             ImageUrl = "",
@@ -714,7 +709,6 @@ namespace MvcMovie.Migrations
                             Author = "Laura Phantom",
                             BranchId = 3,
                             CategoryId = 2,
-                            Cost = 0.0,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "FOT000000001",
                             ImageUrl = "",
@@ -871,7 +865,7 @@ namespace MvcMovie.Migrations
                         {
                             Id = 1,
                             Amount = 100m,
-                            Date = new DateTime(2025, 3, 9, 13, 46, 57, 944, DateTimeKind.Local).AddTicks(6561),
+                            Date = new DateTime(2025, 3, 9, 21, 29, 49, 889, DateTimeKind.Local).AddTicks(7993),
                             Deposit = 10m,
                             Discount = 10m,
                             PurchaseDate = new DateTime(2025, 3, 9, 0, 0, 0, 0, DateTimeKind.Local),
@@ -883,7 +877,7 @@ namespace MvcMovie.Migrations
                         {
                             Id = 2,
                             Amount = 300m,
-                            Date = new DateTime(2025, 3, 9, 13, 46, 57, 944, DateTimeKind.Local).AddTicks(6633),
+                            Date = new DateTime(2025, 3, 9, 21, 29, 49, 889, DateTimeKind.Local).AddTicks(7999),
                             Deposit = 30m,
                             Discount = 30m,
                             PurchaseDate = new DateTime(2025, 3, 9, 0, 0, 0, 0, DateTimeKind.Local),
@@ -895,7 +889,7 @@ namespace MvcMovie.Migrations
                         {
                             Id = 3,
                             Amount = 200m,
-                            Date = new DateTime(2025, 3, 9, 13, 46, 57, 944, DateTimeKind.Local).AddTicks(6638),
+                            Date = new DateTime(2025, 3, 9, 21, 29, 49, 889, DateTimeKind.Local).AddTicks(8002),
                             Deposit = 10m,
                             Discount = 10m,
                             PurchaseDate = new DateTime(2025, 3, 9, 0, 0, 0, 0, DateTimeKind.Local),
@@ -1012,7 +1006,7 @@ namespace MvcMovie.Migrations
                         {
                             Id = 1,
                             PayAmount = 100m,
-                            PayDate = new DateTime(2025, 3, 9, 13, 46, 57, 944, DateTimeKind.Local).AddTicks(7484),
+                            PayDate = new DateTime(2025, 3, 9, 21, 29, 49, 889, DateTimeKind.Local).AddTicks(8643),
                             PaymentMethodId = 1,
                             PurchaseId = 1
                         },
@@ -1020,7 +1014,7 @@ namespace MvcMovie.Migrations
                         {
                             Id = 2,
                             PayAmount = 200m,
-                            PayDate = new DateTime(2025, 3, 9, 13, 46, 57, 944, DateTimeKind.Local).AddTicks(7487),
+                            PayDate = new DateTime(2025, 3, 9, 21, 29, 49, 889, DateTimeKind.Local).AddTicks(8646),
                             PaymentMethodId = 2,
                             PurchaseId = 2
                         },
@@ -1028,7 +1022,7 @@ namespace MvcMovie.Migrations
                         {
                             Id = 3,
                             PayAmount = 300m,
-                            PayDate = new DateTime(2025, 3, 9, 13, 46, 57, 944, DateTimeKind.Local).AddTicks(7489),
+                            PayDate = new DateTime(2025, 3, 9, 21, 29, 49, 889, DateTimeKind.Local).AddTicks(8648),
                             PaymentMethodId = 1,
                             PurchaseId = 3
                         });
