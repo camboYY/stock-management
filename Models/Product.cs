@@ -16,8 +16,7 @@ namespace MvcMovie.Models
         [Required]
         public string Author { set; get; }
         [Display(Name = "Cost")]
-        [Range(1, 1000)]
-        public double Cost { get; set; }
+        public double? Cost { get; set; }
         [Required]
         [Display(Name = "List Price")]
         [Range(1, 1000)]
