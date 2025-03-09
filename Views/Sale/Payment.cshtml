@@ -82,6 +82,12 @@
                     @Html.DisplayFor(modelItem => item.InvoiceNumber)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.PreparedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rate.Value)
+                </td>
+                <td>
                     @Html.Raw(item.Status ? "Yes" : "No")
                 </td>
                 <td>

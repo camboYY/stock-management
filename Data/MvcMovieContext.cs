@@ -221,8 +221,11 @@ namespace MvcMovie.Data
             );
             modelBuilder.Entity<ProductUnit>().ToTable("ProductUnits").HasData(
                 new ProductUnit { Id = 1, ProductId = 1, UnitTypeId = 1, Cost = 90, Price = 100, IsDefault = true },
-                new ProductUnit { Id = 2, ProductId = 1, UnitTypeId = 2, Cost = 10, Price = 40, IsDefault = false },
-                new ProductUnit { Id = 3, ProductId = 1, UnitTypeId = 3, Cost = 30, Price = 40, IsDefault = false }
+                new ProductUnit { Id = 2, ProductId = 2, UnitTypeId = 2, Cost = 10, Price = 40, IsDefault = false },
+                new ProductUnit { Id = 3, ProductId = 3, UnitTypeId = 3, Cost = 30, Price = 40, IsDefault = false },
+                new ProductUnit { Id = 4, ProductId = 4, UnitTypeId = 3, Cost = 40, Price = 40, IsDefault = false },
+                new ProductUnit { Id = 5, ProductId = 5, UnitTypeId = 3, Cost = 60, Price = 40, IsDefault = false },
+                new ProductUnit { Id = 6, ProductId = 6, UnitTypeId = 3, Cost = 80, Price = 40, IsDefault = false }
             );
             modelBuilder.Entity<Purchase>().ToTable("Purchases").HasData(
                new Purchase { Id = 1, PurchaseDate = DateTime.Today, Date = DateTime.Now, UserId1 = "three", SupplierId = 1, Amount = 100.0, Discount = 10, Deposit = 10, Status = true },

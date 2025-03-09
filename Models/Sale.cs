@@ -25,5 +25,6 @@ public class Sale
     public bool Status { get; set; }
     [DisplayName("Sale Rate")]
     public int RateId { get; set; }
-
+    [ValidateNever]
+    public Rate Rate { get; set; }
 }

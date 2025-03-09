@@ -81,7 +81,7 @@ public class SaleController : Controller
             IEnumerable<Rate> rate = await _unitOfWork.Rate.GetAll(1);
             IEnumerable<SelectListItem> rates = rate.Select(u => new SelectListItem
             {
-                Text = u.Date.ToString(),
+                Text = u.Value.ToString(),
                 Value = u.Id.ToString()
             });
             ViewData["RateList"] = rates;
@@ -190,7 +190,7 @@ public class SaleController : Controller
     [HttpGet]
     public async Task<IActionResult> Payment(int? page = 1)
     {
-        IEnumerable<Sale> sales = await _unitOfWork.Sale.GetAll(page, inCludes: "Customer,ApplicationUser");
+        IEnumerable<Sale> sales = await _unitOfWork.Sale.GetAll(page, inCludes: "Customer,ApplicationUser,Rate");
         return View(sales);
     }
 
