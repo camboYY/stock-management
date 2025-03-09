@@ -45,6 +45,29 @@ namespace MvcMovie.Controllers
             IPagedList<Product> products = new StaticPagedList<Product>(filteredProducts, page ?? 1, 10, filteredProducts.Count());
             return View(products);
         }
+        public async Task<IActionResult> ProductTopSold(int? page = 1)
+        {
+            int pageSize = 10;
+            int pageNumber = page ?? 1;
+
+            var saleDetails = await _unitOfWork.SaleDetail.GetAll(inCludes: "Product");
+
+            var topSoldProducts = saleDetails
+                .GroupBy(sd => sd.Product)
+                .Select(group => new ProductTopSoldViewModel
+                {
+                    Product = group.Key,
+                    TotalSold = group.Sum(sd => sd.Qty)  // Summing up sold quantities
+                })
+                .OrderByDescending(p => p.TotalSold)
+                .ToList();
+
+            IPagedList<ProductTopSoldViewModel> pagedProducts = new StaticPagedList<ProductTopSoldViewModel>(
+                topSoldProducts, pageNumber, pageSize, topSoldProducts.Count
+            );
+
+            return View(pagedProducts);
+        }
     }
 
 }

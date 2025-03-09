@@ -1,0 +1,47 @@
+@model X.PagedList.IPagedList<ProductTopSoldViewModel>
+
+    @using X.PagedList.Mvc
+    @using X.PagedList.Mvc.Core
+
+    @{
+    ViewData["Title"] = "Product Top Sold Report";
+    }
+
+<h3>Product Top Sold Report</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.First().Product.Title)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Product.Author)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Product.ISBN)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Product.ListPrice)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Product.Price)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Product.Price50)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Product.Price100)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Product.StockType)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Product.QtyOnHand)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Product.Category.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.First().TotalSold)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Product.Title)</td>
+                <td>@Html.DisplayFor(modelItem => item.Product.Author)</td>
+                <td>@Html.DisplayFor(modelItem => item.Product.ISBN)</td>
+                <td>@Html.DisplayFor(modelItem => item.Product.ListPrice)</td>
+                <td>@Html.DisplayFor(modelItem => item.Product.Price)</td>
+                <td>@Html.DisplayFor(modelItem => item.Product.Price50)</td>
+                <td>@Html.DisplayFor(modelItem => item.Product.Price100)</td>
+                <td>@Html.DisplayFor(modelItem => item.Product.StockType)</td>
+                <td>@Html.DisplayFor(modelItem => item.Product.QtyOnHand)</td>
+                <td>@Html.DisplayFor(modelItem => item.Product.Category.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.TotalSold)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

@@ -868,7 +868,7 @@ namespace MvcMovie.Migrations
                         {
                             Id = 1,
                             Amount = 100m,
-                            Date = new DateTime(2025, 3, 9, 10, 17, 7, 701, DateTimeKind.Local).AddTicks(5040),
+                            Date = new DateTime(2025, 3, 9, 13, 46, 57, 944, DateTimeKind.Local).AddTicks(6561),
                             Deposit = 10m,
                             Discount = 10m,
                             PurchaseDate = new DateTime(2025, 3, 9, 0, 0, 0, 0, DateTimeKind.Local),
@@ -880,7 +880,7 @@ namespace MvcMovie.Migrations
                         {
                             Id = 2,
                             Amount = 300m,
-                            Date = new DateTime(2025, 3, 9, 10, 17, 7, 701, DateTimeKind.Local).AddTicks(5050),
+                            Date = new DateTime(2025, 3, 9, 13, 46, 57, 944, DateTimeKind.Local).AddTicks(6633),
                             Deposit = 30m,
                             Discount = 30m,
                             PurchaseDate = new DateTime(2025, 3, 9, 0, 0, 0, 0, DateTimeKind.Local),
@@ -892,7 +892,7 @@ namespace MvcMovie.Migrations
                         {
                             Id = 3,
                             Amount = 200m,
-                            Date = new DateTime(2025, 3, 9, 10, 17, 7, 701, DateTimeKind.Local).AddTicks(5050),
+                            Date = new DateTime(2025, 3, 9, 13, 46, 57, 944, DateTimeKind.Local).AddTicks(6638),
                             Deposit = 10m,
                             Discount = 10m,
                             PurchaseDate = new DateTime(2025, 3, 9, 0, 0, 0, 0, DateTimeKind.Local),
@@ -1009,7 +1009,7 @@ namespace MvcMovie.Migrations
                         {
                             Id = 1,
                             PayAmount = 100m,
-                            PayDate = new DateTime(2025, 3, 9, 10, 17, 7, 701, DateTimeKind.Local).AddTicks(5570),
+                            PayDate = new DateTime(2025, 3, 9, 13, 46, 57, 944, DateTimeKind.Local).AddTicks(7484),
                             PaymentMethodId = 1,
                             PurchaseId = 1
                         },
@@ -1017,7 +1017,7 @@ namespace MvcMovie.Migrations
                         {
                             Id = 2,
                             PayAmount = 200m,
-                            PayDate = new DateTime(2025, 3, 9, 10, 17, 7, 701, DateTimeKind.Local).AddTicks(5580),
+                            PayDate = new DateTime(2025, 3, 9, 13, 46, 57, 944, DateTimeKind.Local).AddTicks(7487),
                             PaymentMethodId = 2,
                             PurchaseId = 2
                         },
@@ -1025,7 +1025,7 @@ namespace MvcMovie.Migrations
                         {
                             Id = 3,
                             PayAmount = 300m,
-                            PayDate = new DateTime(2025, 3, 9, 10, 17, 7, 701, DateTimeKind.Local).AddTicks(5580),
+                            PayDate = new DateTime(2025, 3, 9, 13, 46, 57, 944, DateTimeKind.Local).AddTicks(7489),
                             PaymentMethodId = 1,
                             PurchaseId = 3
                         });
@@ -1062,6 +1062,7 @@ namespace MvcMovie.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("ApplicationUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("CustomerId")
@@ -1078,10 +1079,6 @@ namespace MvcMovie.Migrations
 
                     b.Property<long>("InvoiceNumber")
                         .HasColumnType("bigint");
-
-                    b.Property<string>("PreparedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("RateId")
                         .HasColumnType("int");
@@ -1516,7 +1513,9 @@ namespace MvcMovie.Migrations
                 {
                     b.HasOne("MvcMovie.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MvcMovie.Models.Customer", "Customer")
                         .WithMany()

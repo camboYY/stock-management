@@ -1,11 +1,14 @@
 using System.Security.Claims;
 using System.Text.Json;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using MvcMovie.Models;
 using MvcMovie.Repositories;
 using MvcMovie.Utility;
 using X.PagedList;
+using X.PagedList.Extensions;
 
 namespace MvcMovie.Controllers;
 
@@ -17,7 +20,6 @@ public class SaleController : Controller
     {
         _unitOfWork = unitOfWork;
     }
-
     public async Task<IActionResult> Index(string? searchString)
     {
 
@@ -123,7 +125,7 @@ public class SaleController : Controller
                             InvoiceNumber = GenerateTimestampNumber(),
                             SaleDate = saling.sum.SaleDate,
                             Date = DateTime.Now,
-                            PreparedBy = userId,
+                            ApplicationUserId = userId,
                             CustomerId = saling.sum.CustomerId,
                             Amount = saling.sum.sumTotal,
                             Deposit = saling.sum.sumDeposit,
@@ -187,11 +189,34 @@ public class SaleController : Controller
     }
 
 
+    //[HttpGet]
+    //public async Task<IActionResult> Payment(int? page = 1)
+    //{
+    //    IEnumerable<Sale> sales = await _unitOfWork.Sale.GetAll(page, inCludes: "Customer,ApplicationUser,Rate");
+    //    return View(sales);
+    //}
+
     [HttpGet]
-    public async Task<IActionResult> Payment(int? page = 1)
+    public async Task<IActionResult> Payment(int? page = 1, int? customerId = null)
     {
-        IEnumerable<Sale> sales = await _unitOfWork.Sale.GetAll(page, inCludes: "Customer,ApplicationUser,Rate");
-        return View(sales);
+        int pageSize = 10;
+        int pageNumber = page ?? 1;
+
+        // Fetch filtered sales with pagination
+        IPagedList<Sale> pagedSales = await _unitOfWork.Sale.GetAll(pageNumber, "Customer,ApplicationUser,Rate");
+
+        // If filtering by customerId, apply filtering before pagination
+        if (customerId.HasValue && customerId > 0)
+        {
+            pagedSales = await _unitOfWork.Sale.GetList(p => p.CustomerId == customerId, "Customer,ApplicationUser,Rate")
+                            .ContinueWith(task => task.Result.ToPagedList(pageNumber, pageSize));
+        }
+
+        // Pass data to ViewBag
+        ViewBag.CustomerId = customerId;
+        ViewBag.Customers = await _unitOfWork.Customer.GetAll();
+
+        return View(pagedSales);
     }
 
     public async Task<IActionResult> Details(int Id)
