@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MvcMovie.Data;
 
@@ -11,9 +12,11 @@ using MvcMovie.Data;
 namespace MvcMovie.Migrations
 {
     [DbContext(typeof(MvcMovieContext))]
-    partial class MvcMovieContextModelSnapshot : ModelSnapshot
+    [Migration("20250308081954_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -841,7 +844,7 @@ namespace MvcMovie.Migrations
                         {
                             Id = 1,
                             Amount = 100m,
-                            Date = new DateTime(2025, 3, 8, 17, 4, 15, 33, DateTimeKind.Local).AddTicks(6280),
+                            Date = new DateTime(2025, 3, 8, 15, 19, 53, 19, DateTimeKind.Local).AddTicks(6930),
                             Deposit = 10m,
                             Discount = 10m,
                             PurchaseDate = new DateTime(2025, 3, 8, 0, 0, 0, 0, DateTimeKind.Local),
@@ -853,7 +856,7 @@ namespace MvcMovie.Migrations
                         {
                             Id = 2,
                             Amount = 300m,
-                            Date = new DateTime(2025, 3, 8, 17, 4, 15, 33, DateTimeKind.Local).AddTicks(6280),
+                            Date = new DateTime(2025, 3, 8, 15, 19, 53, 19, DateTimeKind.Local).AddTicks(6940),
                             Deposit = 30m,
                             Discount = 30m,
                             PurchaseDate = new DateTime(2025, 3, 8, 0, 0, 0, 0, DateTimeKind.Local),
@@ -865,7 +868,7 @@ namespace MvcMovie.Migrations
                         {
                             Id = 3,
                             Amount = 200m,
-                            Date = new DateTime(2025, 3, 8, 17, 4, 15, 33, DateTimeKind.Local).AddTicks(6290),
+                            Date = new DateTime(2025, 3, 8, 15, 19, 53, 19, DateTimeKind.Local).AddTicks(6940),
                             Deposit = 10m,
                             Discount = 10m,
                             PurchaseDate = new DateTime(2025, 3, 8, 0, 0, 0, 0, DateTimeKind.Local),
@@ -982,7 +985,7 @@ namespace MvcMovie.Migrations
                         {
                             Id = 1,
                             PayAmount = 100m,
-                            PayDate = new DateTime(2025, 3, 8, 17, 4, 15, 33, DateTimeKind.Local).AddTicks(6840),
+                            PayDate = new DateTime(2025, 3, 8, 15, 19, 53, 19, DateTimeKind.Local).AddTicks(7840),
                             PaymentMethodId = 1,
                             PurchaseId = 1
                         },
@@ -990,7 +993,7 @@ namespace MvcMovie.Migrations
                         {
                             Id = 2,
                             PayAmount = 200m,
-                            PayDate = new DateTime(2025, 3, 8, 17, 4, 15, 33, DateTimeKind.Local).AddTicks(6850),
+                            PayDate = new DateTime(2025, 3, 8, 15, 19, 53, 19, DateTimeKind.Local).AddTicks(7850),
                             PaymentMethodId = 2,
                             PurchaseId = 2
                         },
@@ -998,29 +1001,10 @@ namespace MvcMovie.Migrations
                         {
                             Id = 3,
                             PayAmount = 300m,
-                            PayDate = new DateTime(2025, 3, 8, 17, 4, 15, 33, DateTimeKind.Local).AddTicks(6850),
+                            PayDate = new DateTime(2025, 3, 8, 15, 19, 53, 19, DateTimeKind.Local).AddTicks(7850),
                             PaymentMethodId = 1,
                             PurchaseId = 3
                         });
-                });
-
-            modelBuilder.Entity("MvcMovie.Models.Rate", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("Value")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Rates");
                 });
 
             modelBuilder.Entity("MvcMovie.Models.Sale", b =>
@@ -1049,12 +1033,11 @@ namespace MvcMovie.Migrations
                     b.Property<double>("Discount")
                         .HasColumnType("float");
 
-                    b.Property<long>("InvoiceNumber")
-                        .HasColumnType("bigint");
+                    b.Property<int>("InvoiceNumber")
+                        .HasColumnType("int");
 
-                    b.Property<string>("PreparedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PreparedBy")
+                        .HasColumnType("int");
 
                     b.Property<int>("RateId")
                         .HasColumnType("int");

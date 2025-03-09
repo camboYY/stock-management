@@ -1,0 +1,66 @@
+@model IEnumerable<MvcMovie.Models.SaleDetail>
+
+
+@{
+    ViewData["Title"] = "Sale Detail";
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Sale.InvoiceNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Product.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Cost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Discount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Qty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().UnitType.Name)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sale.InvoiceNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Discount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Qty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitType.Name)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Payment">Back to Sale Report</a>

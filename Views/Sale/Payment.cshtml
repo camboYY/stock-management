@@ -1,0 +1,99 @@
+@model X.PagedList.IPagedList<MvcMovie.Models.Sale>
+
+@using X.PagedList.Mvc
+@using X.PagedList.Mvc.Core
+
+@{
+    ViewData["Title"] = "Sale Report";
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().SaleDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().ApplicationUser.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().CustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Discount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Deposit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().InvoiceNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().PreparedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().RateId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SaleDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Discount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Deposit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InvoiceNumber)
+                </td>
+                <td>
+                    @Html.Raw(item.Status ? "Yes" : "No")
+                </td>
+                <td>
+                    @if (!item.Status)
+                    {
+                        <a class="btn btn-outline-secondary" asp-action="CreateSalePayment" asp-route-id="@item.Id">Pay</a>
+                    }
+
+                    <a class="btn btn-outline-secondary" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
