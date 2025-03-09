@@ -1,52 +1,48 @@
 @model X.PagedList.IPagedList<MvcMovie.Models.Sale>
 
-@using X.PagedList.Mvc
 @using X.PagedList.Mvc.Core
 
 @{
     ViewData["Title"] = "Sale Report";
 }
 
+<h3>Sale Report</h3>
 
+<!-- Filter Form -->
+<form method="get" asp-action="Payment" class="mb-3">
+    <div class="row">
+        <div class="col-md-4">
+            <label for="customerId">Customer:</label>
+            <select name="customerId" class="form-control">
+                <option value="">-- Select Customer --</option>
+                @foreach (var customer in ViewBag.Customers)
+                {
+                    <option value="@customer.Id" selected="@(customer.Id == ViewBag.CustomerId)">
+                        @customer.Name
+                    </option>
+                }
+            </select>
+        </div>
+        <div class="col-md-4 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary">Filter</button>
+            <a href="@Url.Action("Payment")" class="btn btn-secondary ms-2">Reset</a>
+        </div>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.First().Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().SaleDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().ApplicationUser.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().CustomerId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().Amount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().Discount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().Deposit)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().InvoiceNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().PreparedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().RateId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().Status)
-            </th>
+            <th>@Html.DisplayNameFor(model => model.First().Id)</th>
+            <th>@Html.DisplayNameFor(model => model.First().InvoiceNumber)</th>
+            <th>@Html.DisplayNameFor(model => model.First().SaleDate)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Date)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Customer.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Amount)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Discount)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Deposit)</th>
+            <th>@Html.DisplayNameFor(model => model.First().ApplicationUser.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Rate.Value)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Status)</th>
             <th></th>
         </tr>
     </thead>
@@ -54,52 +50,27 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SaleDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Customer.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Amount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Discount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Deposit)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.InvoiceNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PreparedBy)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Rate.Value)
-                </td>
-                <td>
-                    @Html.Raw(item.Status ? "Yes" : "No")
-                </td>
+                <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                <td>@Html.DisplayFor(modelItem => item.InvoiceNumber)</td>
+                <td>@Html.DisplayFor(modelItem => item.SaleDate)</td>
+                <td>@Html.DisplayFor(modelItem => item.Date)</td>
+                <td>@Html.DisplayFor(modelItem => item.Customer.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Amount)</td>
+                <td>@Html.DisplayFor(modelItem => item.Discount)</td>
+                <td>@Html.DisplayFor(modelItem => item.Deposit)</td>
+                <td>@Html.DisplayFor(modelItem => item.ApplicationUser.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Rate.Value)</td>
+                <td>@Html.Raw(item.Status ? "Yes" : "No")</td>
                 <td>
                     @if (!item.Status)
                     {
                         <a class="btn btn-outline-secondary" asp-action="CreateSalePayment" asp-route-id="@item.Id">Pay</a>
                     }
-
                     <a class="btn btn-outline-secondary" asp-action="Details" asp-route-id="@item.Id">Details</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
+@Html.PagedListPager(Model, page => Url.Action("Payment", new { page, preparedBy = ViewBag.PreparedBy, customerId = ViewBag.CustomerId }))

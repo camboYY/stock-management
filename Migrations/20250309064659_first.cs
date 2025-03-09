@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MvcMovie.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class first : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -162,6 +162,20 @@ namespace MvcMovie.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Rates",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Value = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rates", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Suppliers",
                 columns: table => new
                 {
@@ -312,6 +326,46 @@ namespace MvcMovie.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Sales",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SaleDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    Amount = table.Column<double>(type: "float", nullable: false),
+                    Discount = table.Column<double>(type: "float", nullable: false),
+                    Deposit = table.Column<double>(type: "float", nullable: false),
+                    InvoiceNumber = table.Column<long>(type: "bigint", nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false),
+                    RateId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sales", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Sales_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Sales_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Sales_Rates_RateId",
+                        column: x => x.RateId,
+                        principalTable: "Rates",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Purchases",
                 columns: table => new
                 {
@@ -398,42 +452,36 @@ namespace MvcMovie.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Sales",
+                name: "SalePayments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SaleDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SaleId = table.Column<int>(type: "int", nullable: false),
+                    PaymentMethodId = table.Column<int>(type: "int", nullable: false),
+                    PayDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PayAmount = table.Column<double>(type: "float", nullable: false),
                     PreparedBy = table.Column<int>(type: "int", nullable: false),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
-                    Amount = table.Column<double>(type: "float", nullable: false),
-                    Discount = table.Column<double>(type: "float", nullable: false),
-                    Deposit = table.Column<double>(type: "float", nullable: false),
-                    WarehouseId = table.Column<int>(type: "int", nullable: false),
-                    InvoiceNumber = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<bool>(type: "bit", nullable: false),
-                    RateId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Sales", x => x.Id);
+                    table.PrimaryKey("PK_SalePayments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Sales_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
+                        name: "FK_SalePayments_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Sales_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
+                        name: "FK_SalePayments_PaymentMethods_PaymentMethodId",
+                        column: x => x.PaymentMethodId,
+                        principalTable: "PaymentMethods",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Sales_Warehouses_WarehouseId",
-                        column: x => x.WarehouseId,
-                        principalTable: "Warehouses",
+                        name: "FK_SalePayments_Sales_SaleId",
+                        column: x => x.SaleId,
+                        principalTable: "Sales",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -574,41 +622,6 @@ namespace MvcMovie.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "SalePayments",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SaleId = table.Column<int>(type: "int", nullable: false),
-                    PaymentMethodId = table.Column<int>(type: "int", nullable: false),
-                    PayDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PayAmount = table.Column<double>(type: "float", nullable: false),
-                    PreparedBy = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SalePayments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SalePayments_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_SalePayments_PaymentMethods_PaymentMethodId",
-                        column: x => x.PaymentMethodId,
-                        principalTable: "PaymentMethods",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_SalePayments_Sales_SaleId",
-                        column: x => x.SaleId,
-                        principalTable: "Sales",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.InsertData(
                 table: "Branches",
                 columns: new[] { "Id", "Active", "BranchCode", "Name" },
@@ -718,9 +731,9 @@ namespace MvcMovie.Migrations
                 columns: new[] { "Id", "Amount", "Date", "Deposit", "Discount", "PurchaseDate", "PurchaseOrderNumber", "Status", "SupplierId", "UserId", "UserId1" },
                 values: new object[,]
                 {
-                    { 1, 100m, new DateTime(2025, 3, 8, 14, 19, 15, 795, DateTimeKind.Local).AddTicks(3526), 10m, 10m, new DateTime(2025, 3, 8, 0, 0, 0, 0, DateTimeKind.Local), null, true, 1, null, "three" },
-                    { 2, 300m, new DateTime(2025, 3, 8, 14, 19, 15, 795, DateTimeKind.Local).AddTicks(3530), 30m, 30m, new DateTime(2025, 3, 8, 0, 0, 0, 0, DateTimeKind.Local), null, true, 2, null, "one" },
-                    { 3, 200m, new DateTime(2025, 3, 8, 14, 19, 15, 795, DateTimeKind.Local).AddTicks(3534), 10m, 10m, new DateTime(2025, 3, 8, 0, 0, 0, 0, DateTimeKind.Local), null, true, 3, null, "two" }
+                    { 1, 100m, new DateTime(2025, 3, 9, 13, 46, 57, 944, DateTimeKind.Local).AddTicks(6561), 10m, 10m, new DateTime(2025, 3, 9, 0, 0, 0, 0, DateTimeKind.Local), null, true, 1, null, "three" },
+                    { 2, 300m, new DateTime(2025, 3, 9, 13, 46, 57, 944, DateTimeKind.Local).AddTicks(6633), 30m, 30m, new DateTime(2025, 3, 9, 0, 0, 0, 0, DateTimeKind.Local), null, true, 2, null, "one" },
+                    { 3, 200m, new DateTime(2025, 3, 9, 13, 46, 57, 944, DateTimeKind.Local).AddTicks(6638), 10m, 10m, new DateTime(2025, 3, 9, 0, 0, 0, 0, DateTimeKind.Local), null, true, 3, null, "two" }
                 });
 
             migrationBuilder.InsertData(
@@ -729,8 +742,11 @@ namespace MvcMovie.Migrations
                 values: new object[,]
                 {
                     { 1, 90m, true, 100m, 1, 1 },
-                    { 2, 10m, false, 40m, 1, 2 },
-                    { 3, 30m, false, 40m, 1, 3 }
+                    { 2, 10m, false, 40m, 2, 2 },
+                    { 3, 30m, false, 40m, 3, 3 },
+                    { 4, 40m, false, 40m, 4, 3 },
+                    { 5, 60m, false, 40m, 5, 3 },
+                    { 6, 80m, false, 40m, 6, 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -748,9 +764,9 @@ namespace MvcMovie.Migrations
                 columns: new[] { "Id", "PayAmount", "PayDate", "PaymentMethodId", "PurchaseId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 100m, new DateTime(2025, 3, 8, 14, 19, 15, 795, DateTimeKind.Local).AddTicks(4263), 1, 1, null },
-                    { 2, 200m, new DateTime(2025, 3, 8, 14, 19, 15, 795, DateTimeKind.Local).AddTicks(4266), 2, 2, null },
-                    { 3, 300m, new DateTime(2025, 3, 8, 14, 19, 15, 795, DateTimeKind.Local).AddTicks(4268), 1, 3, null }
+                    { 1, 100m, new DateTime(2025, 3, 9, 13, 46, 57, 944, DateTimeKind.Local).AddTicks(7484), 1, 1, null },
+                    { 2, 200m, new DateTime(2025, 3, 9, 13, 46, 57, 944, DateTimeKind.Local).AddTicks(7487), 2, 2, null },
+                    { 3, 300m, new DateTime(2025, 3, 9, 13, 46, 57, 944, DateTimeKind.Local).AddTicks(7489), 1, 3, null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -903,9 +919,9 @@ namespace MvcMovie.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sales_WarehouseId",
+                name: "IX_Sales_RateId",
                 table: "Sales",
-                column: "WarehouseId");
+                column: "RateId");
         }
 
         /// <inheritdoc />
@@ -978,13 +994,16 @@ namespace MvcMovie.Migrations
                 name: "Suppliers");
 
             migrationBuilder.DropTable(
+                name: "Warehouses");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "Warehouses");
+                name: "Rates");
         }
     }
 }

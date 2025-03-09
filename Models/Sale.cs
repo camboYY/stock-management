@@ -11,7 +11,7 @@ public class Sale
     public DateTime SaleDate { get; set; }
     public DateTime Date { get; set; }
     [DisplayName("Prepared By")]
-    public string PreparedBy { get; set; } // PreparedBy this is userId
+    public string ApplicationUserId { get; set; } // PreparedBy this is userId
     [ValidateNever]
     public ApplicationUser ApplicationUser { get; set; }
     [DisplayName("Customer")]
